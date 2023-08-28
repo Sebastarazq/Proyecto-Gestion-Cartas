@@ -1,4 +1,5 @@
 import { express } from "express";
+import appRoutes from './routes/appRoutes.js'
 
 //Crear la app
 const app = express();
