@@ -18,5 +18,5 @@ app.use('/', appRoutes)
 //Definir un puerto y arrancar el proyecto // Para el correo process.env.PORT
 const port = 3000;
 app.listen(process.env.PORT || port, () =>{
-    console.log(`El servidor de ApoloWebApp esta funcionando en el puerto ${port}`)
+    console.log(`El servidor esta funcionando en el puerto ${port}`)
 });
