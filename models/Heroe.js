@@ -43,28 +43,26 @@ class HeroModel {
 
   // Método para crear una nueva carta
   static async createHero(heroData) {
-    try {
-      console.log('Solicitud a enviar:', heroData);
-  
-      const response = await fetch(apiUrl, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json' // Cambia el tipo de contenido a JSON
-        },
-        body: JSON.stringify(heroData) // Convierte los datos a JSON
-      });
-  
-      if (!response.ok) {
-        throw new Error(`Error en la solicitud: ${response.statusText}`);
-      }
-  
-      const data = await response.json();
-      return data;
-    } catch (error) {
-      console.error('Error al crear la carta:', error);
-      throw error;
+        try {
+        console.log('Solicitud a enviar:', heroData);
+    
+        const response = await fetch(apiUrl, {
+            method: 'POST',
+            body: heroData
+        });
+    
+        if (!response.ok) {
+            throw new Error(`Error en la solicitud: ${response.statusText}`);
+        }
+    
+        const data = await response.text(); // Cambia a response.text() para obtener la respuesta como texto
+        return data;
+        } catch (error) {
+        console.error('Error al crear la carta:', error);
+        throw error;
+        }
     }
-  }
+
 }  
 
 export default HeroModel;

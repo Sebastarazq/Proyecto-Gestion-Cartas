@@ -34,22 +34,21 @@ const mostrarFormularioCreacion = (req, res) => {
 
   const crearCarta = async (req, res) => {
     try {
-      const cartaData = {
-        urlImagen: req.body.urlImagen,
-        clase: req.body.clase,
-        tipo: req.body.tipo,
-        poder: req.body.poder,
-        vida: req.body.vida,
-        defensa: req.body.defensa,
-        ataqueBase: req.body.ataqueBase,
-        ataqueDado: req.body.ataqueDado,
-        danoMax: req.body.danoMax,
-        activo: req.body.activo,
-        desc: req.body.desc
-      };
+      const formData = new FormData();
+      formData.append('urlImagen', req.body.urlImagen);
+      formData.append('clase', req.body.clase);
+      formData.append('tipo', req.body.tipo);
+      formData.append('poder', req.body.poder);
+      formData.append('vida', req.body.vida);
+      formData.append('defensa', req.body.defensa);
+      formData.append('ataqueBase', req.body.ataqueBase);
+      formData.append('ataqueDado', req.body.ataqueDado);
+      formData.append('danoMax', req.body.danoMax);
+      formData.append('activo', req.body.activo);
+      formData.append('desc', req.body.desc);
   
-      console.log('Datos enviados desde el formulario:', cartaData);
-      const createdHero = await HeroModel.createHero(cartaData);
+      console.log('Datos enviados desde el formulario:', formData);
+      const createdHero = await HeroModel.createHero(formData);
   
       res.redirect('/admin/heroes');
     } catch (error) {
@@ -57,6 +56,8 @@ const mostrarFormularioCreacion = (req, res) => {
       res.status(500).json({ error: 'Error al crear la carta' });
     }
 };
+
+
 
   
   
