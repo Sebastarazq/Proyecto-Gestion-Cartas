@@ -18,23 +18,24 @@ html(lang='en')
         a(href='#') Perfil
     br
     center
-      button.add-card-button(type='button', onclick='addCard()') Añadir carta
+      a(href = '/admin/crearcarta').add-card-button Añadir carta
     br
     .caja
       each hero in heroes
         .columna
           .carta
-            .imagen_carta
-              img(src=hero.UrlImagen, alt='Imagen de la carta')
-            .carta_padding
-              .nombre_carta
-                h2= hero.Clase
-              .descripcion_carta
-                p= hero.Tipo
-              .botones_carta
-                button.modificar(type='button') Modificar
-                button.suspender(type='button') Suspender
-    br
+            .carta-contenedor
+              .imagen_carta
+                img(src=hero.UrlImagen, alt='Imagen de la carta')
+              .info_carta
+                .nombre_carta
+                  h2= hero.Clase
+                .descripcion_carta
+                  p= hero.Tipo
+                .botones_carta
+                  button.modificar(type='button') Modificar
+                  button.suspender(type='button') Suspender
+        br
     center
       ul.pagination
         each pageNum in Array(totalPages).fill().map((_, i) => i + 1)

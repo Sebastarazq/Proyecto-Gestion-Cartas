@@ -103,15 +103,10 @@ body{
     cursor: pointer;
 }
 
-.carta{
-    position: relative;
-    height: 500px;
-    width: 65%;
-    border: 1px solid black;
-    background: aliceblue;
-    justify-content: center;
-    text-align: center;
-}
+.carta {
+    box-sizing: border-box;
+  }
+
 
 .save_button {
     width: 150px;
@@ -126,15 +121,42 @@ body{
     cursor: pointer;
 }
 
+.carta-contenedor {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid black;
+    background: aliceblue;
+    padding: 10px;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+   
+
 .carta_padding{
     position: absolute;
     bottom: 20px;
     width: 100%;
 }
-
-.imagen_carta img{
+.imagen_carta {
     width: 100%;
-    height: 100%;
+    max-height: 500px; /* Aumenta la altura del contenedor de imágenes según tus necesidades */
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+ }
+  
+ .imagen_carta img {
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+.info_carta {
+  margin-top: 10px;
+  text-align: center;
 }
 /* Estilos de la paginación */
 .pagination {

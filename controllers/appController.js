@@ -26,6 +26,44 @@ const mostrarCartas = async (req, res) => {
   }
 };
 
+const mostrarFormularioCreacion = (req, res) => {
+    res.render('crearcarta', {
+      pagina: 'Crear Carta'
+    });
+  };
+
+  const crearCarta = async (req, res) => {
+    try {
+      const cartaData = {
+        urlImagen: req.body.urlImagen,
+        clase: req.body.clase,
+        tipo: req.body.tipo,
+        poder: req.body.poder,
+        vida: req.body.vida,
+        defensa: req.body.defensa,
+        ataqueBase: req.body.ataqueBase,
+        ataqueDado: req.body.ataqueDado,
+        danoMax: req.body.danoMax,
+        activo: req.body.activo,
+        desc: req.body.desc
+      };
+  
+      console.log('Datos enviados desde el formulario:', cartaData);
+      const createdHero = await HeroModel.createHero(cartaData);
+  
+      res.redirect('/admin/heroes');
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Error al crear la carta' });
+    }
+};
+
+  
+  
+  
+
 export {
-  mostrarCartas
+  mostrarCartas,
+  mostrarFormularioCreacion,
+  crearCarta
 };
