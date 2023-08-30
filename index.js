@@ -1,4 +1,4 @@
-import { express } from "express";
+import express  from "express";
 import appRoutes from './routes/appRoutes.js'
 
 //Crear la app

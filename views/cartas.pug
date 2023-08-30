@@ -1,0 +1,42 @@
+doctype html
+html(lang='en')
+  head
+    meta(charset='UTF-8')
+    meta(name='viewport', content='width=device-width,initial-scale=1')
+    title Gestion Cartas
+    link(rel='stylesheet', type='text/css', href='/css/GestionCartas.css')
+    link(href='https://fonts.googleapis.com/css2?family=Barlow:wght@500;600;800&family=Irish+Grover&family=Playfair+Display:wght@700&family=Raleway:wght@400;700;900&display=swap', rel='stylesheet')
+  body
+    header.header
+      nav.nav
+        a(href='#') Subasta
+        a(href='#') Intercambio
+        a(href='#') Torneos
+      nav.nav
+        a(href='#') Mi banco
+        a(href='#') Jugar online
+        a(href='#') Perfil
+    br
+    center
+      button.add-card-button(type='button', onclick='addCard()') Añadir carta
+    br
+    .caja
+      each hero in heroes
+        .columna
+          .carta
+            .imagen_carta
+              img(src=hero.UrlImagen, alt='Imagen de la carta')
+            .carta_padding
+              .nombre_carta
+                h2= hero.Clase
+              .descripcion_carta
+                p= hero.Tipo
+              .botones_carta
+                button.modificar(type='button') Modificar
+                button.suspender(type='button') Suspender
+    br
+    center
+      ul.pagination
+        each pageNum in Array(totalPages).fill().map((_, i) => i + 1)
+          li
+            a(href=`/admin/heroes?page=${pageNum}`, class=pageNum === currentPage ? 'current' : '')= pageNum

@@ -1,0 +1,170 @@
+body{
+    background-color: #CCBEA3;
+    margin: 0px;
+    padding: 0px;
+    font-family: 'Irish Grover';
+}
+
+.header {
+    background-image: url('../img/header.jpeg');
+    background-size: cover;
+    background-position: center;
+    height: 88px; 
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 22px;
+}
+
+.nav {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav a {
+    text-decoration: none;
+    color: white;
+    padding: 10px 20px;
+    transition: background-color 0.3s ease;
+}
+
+.nav a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.add-card-button {
+    width: 150px;
+    height: 50px;
+    background-color: #c0a776;
+    border: 5px solid #bd9c5a;
+    opacity: 90%;
+    border-radius: 10px;
+}
+
+.add-card-button:hover {
+    cursor: pointer;
+}
+
+.caja {
+    display: flex;
+    flex-direction: row;
+    margin: 0 auto;
+    width: 90%;
+    background-color: hsl(208, 100%, 97%,.4);
+    border-radius: 5px;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+.columna {
+    width: 33.33%;
+    padding: 1em;
+    overflow: auto;
+    box-sizing: border-box;
+    float: left;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+@media screen and (max-width: 900px) {
+    .columna  {
+        width: 50%;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .columna  {
+        width: 100%;
+    }
+}
+
+.modificar {
+    background-color: #c7bba3;
+    border: 2px solid #b89d68;
+    opacity: 90%;
+    border-radius: 5px;
+}
+
+.modificar:hover {
+    cursor: pointer;
+}
+
+.suspender {
+    background-color: #c7bba3;
+    border: 2px solid #b89d68;
+    opacity: 90%;
+    border-radius: 5px;
+}
+
+.suspender:hover {
+    cursor: pointer;
+}
+
+.carta{
+    position: relative;
+    height: 500px;
+    width: 65%;
+    border: 1px solid black;
+    background: aliceblue;
+    justify-content: center;
+    text-align: center;
+}
+
+.save_button {
+    width: 150px;
+    height: 50px;
+    background-color: #c0a776;
+    border: 5px solid #bd9c5a;
+    opacity: 90%;
+    border-radius: 50px;
+}
+
+.save_button:hover {
+    cursor: pointer;
+}
+
+.carta_padding{
+    position: absolute;
+    bottom: 20px;
+    width: 100%;
+}
+
+.imagen_carta img{
+    width: 100%;
+    height: 100%;
+}
+/* Estilos de la paginación */
+.pagination {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    padding: 0;
+    margin-top: 20px;
+  }
+  
+.pagination li {
+    margin: 0 5px;
+}
+  
+.pagination a {
+    text-decoration: none;
+    padding: 5px 10px;
+    background-color: #c0a776;
+    border: 1px solid #bd9c5a;
+    border-radius: 5px;
+    color: white;
+    transition: background-color 0.3s ease;
+}
+  
+.pagination a:hover {
+    background-color: #bd9c5a;
+}
+  
+.pagination .current {
+    background-color: #bd9c5a;
+}
+  
+  
