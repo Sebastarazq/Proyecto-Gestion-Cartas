@@ -9,7 +9,7 @@ html(lang='es')
 		.banner
 			main
 				img(src='/img/banner.png', alt='banner')
-				h1 CREACIÓN DE Heroes
+				h1 CREACIÓN DE HEROES
 		.container
 			header
 				h1 Crear nuevo Heroe
@@ -19,7 +19,13 @@ html(lang='es')
 				label(for='clase') Clase:
 				input(type='text', name='clase',id='clase', required)
 				label(for='tipo') Tipo:
-				input(type='text', name='tipo',id='tipo', required)
+				select(name='tipo',id='tipo', required)
+					option(value='Tanque') Tanque
+					option(value='Armas') Armas
+					option(value='Fuego') Fuego
+					option(value='Hielo') Hielo
+					option(value='Veneno') Veneno
+					option(value='Machete') Machete
 				label(for='poder') Poder:
 				input(type='number', name='poder',id='poder', required)
 				label(for='vida') Vida:
