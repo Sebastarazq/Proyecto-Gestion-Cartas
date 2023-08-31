@@ -9,13 +9,13 @@ html(lang='es')
 		.banner
 			main
 				img(src='/img/banner.png', alt='banner')
-				h1 ACTUALIZAR CARTA
+				h1 ACTUALIZAR HEROE
 		.container
 			header
-				h1 Actualizar una carta
+				h1 Actualizar un Heroe
 			form.card-form(action=`/admin/actualizarcarta/${idhero}`, method='patch')
 				label(for='urlImagen') URL de la imagen:
-				input(type='text', name='urlImagen',id='urlImagen', value=hero.urlImagen , required)
+				input(type='text', name='urlImagen',id='urlImagen' , required)
 				label(for='clase') Clase:
 				input(type='text', name='clase',id='clase', required)
 				label(for='tipo') Tipo:
@@ -38,4 +38,4 @@ html(lang='es')
 					option(value='false') Inactivo
 				label(for='desc') Descripción:
 				textarea(name='desc',id='desc', required)
-				button(type='submit') Actualizar carta
+				button(type='submit') Actualizar Heroe

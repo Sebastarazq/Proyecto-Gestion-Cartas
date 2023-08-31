@@ -70,6 +70,7 @@ class HeroModel {
             method: 'PATCH',
             body: heroData
         });
+        console.log("reponse:",response)
 
         if (!response.ok) {
             throw new Error(`Error en la solicitud: ${response.statusText}`);
