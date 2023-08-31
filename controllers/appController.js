@@ -67,7 +67,7 @@ const mostrarFormularioCreacion = (req, res) => {
       const allHeroes = await HeroModel.getAllHeroes(); // Llama al método del modelo para obtener los héroes 
       const Id = req.params // Obtener el ID del héroe de los parámetros de la ruta
   
-      res.render('crearcarta', {
+      res.render('actualizarcarta', {
         pagina: 'Actualizar Carta',
         hero: allHeroes // Enviar los datos del héroe a la vista
       });
