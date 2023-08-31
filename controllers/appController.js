@@ -65,7 +65,7 @@ const mostrarFormularioCreacion = (req, res) => {
   const mostrarFormularioActualizacion = async (req, res) => {
     try {
       const allHeroes = await HeroModel.getAllHeroes(); // Llama al método del modelo para obtener los héroes 
-      const idHero = req.params.id; // Obtener el valor del parámetro :id
+      const idHero = req.params.Id; // Obtener el valor del parámetro :id
   
       res.render('actualizarcarta', {
         pagina: 'Actualizar Carta',
