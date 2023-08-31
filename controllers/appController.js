@@ -66,6 +66,7 @@ const mostrarFormularioCreacion = (req, res) => {
     try {
       const allHeroes = await HeroModel.getAllHeroes(); // Llama al método del modelo para obtener los héroes 
       const idHero = req.params.Id; // Obtener el valor del parámetro :id
+      console.log(idHero)
   
       res.render('actualizarcarta', {
         pagina: 'Actualizar Carta',
@@ -77,12 +78,11 @@ const mostrarFormularioCreacion = (req, res) => {
       res.render('error'); // Renderiza una vista de error en caso de problemas
     }
   };
+
   const actualizarCarta = async (req, res) => {
-
-
     try {
-      const formData = new FormData();
-        formData.append('Id', req.params);
+        const cartaId = req.params.Id; // Obtener el ID de los parámetros de la ruta
+        const formData = new FormData();
         formData.append('urlImagen', req.body.urlImagen);
         formData.append('clase', req.body.clase);
         formData.append('tipo', req.body.tipo);
@@ -94,20 +94,20 @@ const mostrarFormularioCreacion = (req, res) => {
         formData.append('danoMax', req.body.danoMax);
         formData.append('activo', req.body.activo);
         formData.append('desc', req.body.desc);
-    
-      console.log('Datos enviados desde el formulario:', formData);
-      const createdHero = await HeroModel.updateHero(formData);
-  
 
-      console.log('Carta creada:', createdHero);
+        console.log('Datos enviados desde el formulario:', formData);
+        const updateHero = await HeroModel.updateHero(cartaId, formData); // Pasar el ID al modelo
+
+        console.log('Carta actualizada:', updateHero);
 
         // Agregamos un alert para mostrar un mensaje en el navegador
-        res.send('<script>alert("Carta actualizada exitosamente!"); window.location.href = "/admin/actualizarcarta/:heroId";</script>');
+        res.send('<script>alert("Carta actualizada exitosamente!"); window.location.href = "/admin/heroes";</script>');
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Error al actualizar la carta' });
     }
-  };
+};
+
   
 
 export {

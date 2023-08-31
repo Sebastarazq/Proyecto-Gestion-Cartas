@@ -1,6 +1,6 @@
 import fetch from "node-fetch";
 
-const apiUrl = 'http://74.235.113.183/api/heroes/';
+const apiUrl = 'https://main-api-cartas.thenexusbattles2.com/api/heroes/';
 const pageSize = 3;
 
 class HeroModel {
@@ -62,25 +62,25 @@ class HeroModel {
       throw error;
       }
   }
-  static async updateHero(heroData) {
+  static async updateHero(heroId, heroData) {
     try {
-      console.log('Solicitud a enviar:', heroData);
-  
-      const response = await fetch(apiUrl, {
-          method: 'PATCH',
-          body: heroData
-      });
-  
-      if (!response.ok) {
-          throw new Error(`Error en la solicitud: ${response.statusText}`);
-      }
-  
-      const data = await response.text(); // Cambia a response.text() para obtener la respuesta como texto
-      return data;
-      } catch (error) {
-      console.error('Error al crear la carta:', error);
-      throw error;
-      }
+        console.log('Solicitud a enviar:', heroData);
+
+        const response = await fetch(`${apiUrl}/${heroId}`, {
+            method: 'PATCH',
+            body: heroData
+        });
+
+        if (!response.ok) {
+            throw new Error(`Error en la solicitud: ${response.statusText}`);
+        }
+
+        const data = await response.text();
+        return data;
+    } catch (error) {
+        console.error('Error al actualizar la carta:', error);
+        throw error;
+    }
   }
 
 }  
