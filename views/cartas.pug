@@ -34,10 +34,14 @@ html(lang='en')
                   p= hero.Tipo
                 .botones_carta
                   button.modificar(type='button') Modificar
-                  button.suspender(type='button') Suspender
+                  button.suspender(type='button', data-hero-id=hero.Id, data-is-active=hero.activo)
+                    | #{hero.activo ? 'Suspender' : 'Activar'}
+
+
         br
     center
       ul.pagination
         each pageNum in Array(totalPages).fill().map((_, i) => i + 1)
           li
             a(href=`/admin/heroes?page=${pageNum}`, class=pageNum === currentPage ? 'current' : '')= pageNum
+    script(src='/js/scriptCartas.js')

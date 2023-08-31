@@ -27,44 +27,61 @@ const mostrarCartas = async (req, res) => {
 };
 
 const mostrarFormularioCreacion = (req, res) => {
-    res.render('crearcarta', {
+    res.render('crearcarta2', {
       pagina: 'Crear Carta'
     });
   };
 
   const crearCarta = async (req, res) => {
     try {
-      const formData = new FormData();
-      formData.append('urlImagen', req.body.urlImagen);
-      formData.append('clase', req.body.clase);
-      formData.append('tipo', req.body.tipo);
-      formData.append('poder', req.body.poder);
-      formData.append('vida', req.body.vida);
-      formData.append('defensa', req.body.defensa);
-      formData.append('ataqueBase', req.body.ataqueBase);
-      formData.append('ataqueDado', req.body.ataqueDado);
-      formData.append('danoMax', req.body.danoMax);
-      formData.append('activo', req.body.activo);
-      formData.append('desc', req.body.desc);
-  
-      console.log('Datos enviados desde el formulario:', formData);
-      const createdHero = await HeroModel.createHero(formData);
-  
-      res.redirect('/admin/heroes');
+        const cartaData = {
+            urlImagen: req.body.urlImagen,
+            clase: req.body.clase,
+            tipo: req.body.tipo,
+            poder: req.body.poder,
+            vida: req.body.vida,
+            defensa: req.body.defensa,
+            ataqueBase: req.body.ataqueBase,
+            ataqueDado: req.body.ataqueDado,
+            danoMax: req.body.danoMax,
+            activo: req.body.activo,
+            desc: req.body.desc
+        };
+
+        console.log('Datos enviados desde el formulario:', cartaData);
+        const createdHero = await HeroModel.createHero(cartaData);
+
+        console.log('Carta creada:', createdHero);
+
+        // Agregamos un alert para mostrar un mensaje en el navegador
+        res.send('<script>alert("Carta creada exitosamente!"); window.location.href = "/admin/heroes";</script>');
     } catch (error) {
-      console.error(error);
-      res.status(500).json({ error: 'Error al crear la carta' });
+        console.error(error);
+        res.status(500).json({ error: 'Error al crear la carta' });
     }
 };
+// appController.js
 
-
-
+const cambiarEstadoHeroe = async (req, res) => {
+    try {
+      const heroId = req.params.heroId; // Obtener el ID del héroe de los parámetros de la ruta
+      const nuevoEstado = req.body.activo === 'true' ? false : true;
+      console.log('Cambiando estado del héroe:', heroId, nuevoEstado);
   
+      // Aquí realiza la lógica para cambiar el estado del héroe usando el ID y el nuevoEstado
+      // Esto puede incluir una llamada a tu modelo para actualizar el estado en la base de datos
   
+      res.status(200).json({ message: 'Estado del héroe cambiado exitosamente' });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Error al cambiar el estado del héroe' });
+    }
+  };
   
 
 export {
   mostrarCartas,
   mostrarFormularioCreacion,
-  crearCarta
+  crearCarta,
+  cambiarEstadoHeroe
 };
