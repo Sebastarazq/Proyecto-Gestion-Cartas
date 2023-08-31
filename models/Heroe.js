@@ -62,6 +62,26 @@ class HeroModel {
       throw error;
       }
   }
+  static async updateHero(heroData) {
+    try {
+      console.log('Solicitud a enviar:', heroData);
+  
+      const response = await fetch(apiUrl, {
+          method: 'PATCH',
+          body: heroData
+      });
+  
+      if (!response.ok) {
+          throw new Error(`Error en la solicitud: ${response.statusText}`);
+      }
+  
+      const data = await response.text(); // Cambia a response.text() para obtener la respuesta como texto
+      return data;
+      } catch (error) {
+      console.error('Error al crear la carta:', error);
+      throw error;
+      }
+  }
 
 }  
 

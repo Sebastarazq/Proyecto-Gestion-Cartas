@@ -62,19 +62,49 @@ const mostrarFormularioCreacion = (req, res) => {
 };
 // appController.js
 
-const cambiarEstadoHeroe = async (req, res) => {
+  const mostrarFormularioActualizacion = async (req, res) => {
     try {
-      const heroId = req.params.heroId; // Obtener el ID del héroe de los parámetros de la ruta
-      const nuevoEstado = req.body.activo === 'true' ? false : true;
-      console.log('Cambiando estado del héroe:', heroId, nuevoEstado);
+      const allHeroes = await HeroModel.getAllHeroes(); // Llama al método del modelo para obtener los héroes 
+      const Id = req.params // Obtener el ID del héroe de los parámetros de la ruta
   
-      // Aquí realiza la lógica para cambiar el estado del héroe usando el ID y el nuevoEstado
-      // Esto puede incluir una llamada a tu modelo para actualizar el estado en la base de datos
-  
-      res.status(200).json({ message: 'Estado del héroe cambiado exitosamente' });
+      res.render('crearcarta', {
+        pagina: 'Actualizar Carta',
+        hero: allHeroes // Enviar los datos del héroe a la vista
+      });
     } catch (error) {
       console.error(error);
-      res.status(500).json({ error: 'Error al cambiar el estado del héroe' });
+      res.render('error'); // Renderiza una vista de error en caso de problemas
+    }
+  };
+  const actualizarCarta = async (req, res) => {
+
+
+    try {
+      const formData = new FormData();
+        formData.append('Id', req.params);
+        formData.append('urlImagen', req.body.urlImagen);
+        formData.append('clase', req.body.clase);
+        formData.append('tipo', req.body.tipo);
+        formData.append('poder', req.body.poder);
+        formData.append('vida', req.body.vida);
+        formData.append('defensa', req.body.defensa);
+        formData.append('ataqueBase', req.body.ataqueBase);
+        formData.append('ataqueDado', req.body.ataqueDado);
+        formData.append('danoMax', req.body.danoMax);
+        formData.append('activo', req.body.activo);
+        formData.append('desc', req.body.desc);
+    
+      console.log('Datos enviados desde el formulario:', formData);
+      const createdHero = await HeroModel.updateHero(formData);
+  
+
+      console.log('Carta creada:', createdHero);
+
+        // Agregamos un alert para mostrar un mensaje en el navegador
+        res.send('<script>alert("Carta actualizada exitosamente!"); window.location.href = "/admin/actualizarcarta/:heroId";</script>');
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Error al actualizar la carta' });
     }
   };
   
@@ -83,5 +113,6 @@ export {
   mostrarCartas,
   mostrarFormularioCreacion,
   crearCarta,
-  cambiarEstadoHeroe
+  mostrarFormularioActualizacion,
+  actualizarCarta
 };

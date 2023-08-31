@@ -1,0 +1,41 @@
+doctype html
+html(lang='es')
+	head
+		meta(charset='UTF-8')
+		meta(name='viewport', content='width=device-width,initial-scale=1')
+		title Formulario Actualizar
+		link(rel='stylesheet', href='/css/crearCarta.css')
+	body
+		.banner
+			main
+				img(src='/img/banner.png', alt='banner')
+				h1 ACTUALIZAR CARTA
+		.container
+			header
+				h1 Actualizar una carta
+			form.card-form(action='/admin/crearcarta', method='post')
+				label(for='urlImagen') URL de la imagen:
+				input(type='text', name='urlImagen',id='urlImagen', value=hero.urlImagen , required)
+				label(for='clase') Clase:
+				input(type='text', name='clase',id='clase', required)
+				label(for='tipo') Tipo:
+				input(type='text', name='tipo',id='tipo', required)
+				label(for='poder') Poder:
+				input(type='number', name='poder',id='poder', required)
+				label(for='vida') Vida:
+				input(type='number', name='vida',id='vida', required)
+				label(for='defensa') Defensa:
+				input(type='number', name='defensa',id='defensa', required)
+				label(for='ataqueBase') Ataque Base:
+				input(type='number', name='ataqueBase',id='ataqueBase', required)
+				label(for='ataqueDado') Ataque Dado:
+				input(type='number', name='ataqueDado', required)
+				label(for='danoMax') Ataque Máximo:
+				input(type='number', name='danoMax',id='danoMax', required)
+				label(for='activo') Estado:
+				select(name='activo',id='activo', required)
+					option(value='true') Activo
+					option(value='false') Inactivo
+				label(for='desc') Descripción:
+				textarea(name='desc',id='desc', required)
+				button(type='submit') Crear carta

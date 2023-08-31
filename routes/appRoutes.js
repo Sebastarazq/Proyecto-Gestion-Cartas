@@ -1,5 +1,5 @@
 import express from "express";
-import { mostrarCartas, crearCarta, mostrarFormularioCreacion , cambiarEstadoHeroe} from "../controllers/appController.js";
+import { mostrarCartas, crearCarta, mostrarFormularioCreacion , mostrarFormularioActualizacion,actualizarCarta} from "../controllers/appController.js";
 
 const router = express.Router()
 
@@ -9,6 +9,8 @@ router.get('/admin/heroes',mostrarCartas);
 router.get('/admin/crearcarta', mostrarFormularioCreacion);
 router.post('/admin/crearcarta', crearCarta);
 
+router.get('/admin/actualizarcarta/:Id', mostrarFormularioActualizacion);
+router.patch('/admin/actualizarcarta/:Id', actualizarCarta);
 
 
 export default router;
