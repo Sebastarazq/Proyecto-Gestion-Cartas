@@ -34,10 +34,14 @@ html(lang='en')
                   p= hero.Tipo
                 .botones_carta
 <<<<<<< HEAD
+<<<<<<< HEAD
                   a.modificar(href=`/admin/heroes/${hero.Id}`) Modificar
 =======
                   a.modificar(href=`/admin/modificarcarta/${hero.Id}`) Modificar
 >>>>>>> parent of 706e009 (actualizar)
+=======
+                  a.modificar(href=`/admin/heroes/${hero.Id}`) Modificar
+>>>>>>> parent of b3ea5fd (intento de funcionalidad de modificar carta)
                   button.suspender(type='button', data-hero-id=hero.Id, data-is-active=hero.activo)
                     | #{hero.activo ? 'Suspender' : 'Activar'}
 
