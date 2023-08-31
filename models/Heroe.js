@@ -1,6 +1,6 @@
 import fetch from "node-fetch";
 
-const apiUrl = 'http://prime.bucaramanga.upb.edu.co/api/heroes/';
+const apiUrl = 'http://74.235.113.183/api/heroes/';
 const pageSize = 3;
 
 class HeroModel {

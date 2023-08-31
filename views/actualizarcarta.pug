@@ -13,7 +13,7 @@ html(lang='es')
 		.container
 			header
 				h1 Actualizar una carta
-			form.card-form(action='/admin/crearcarta', method='post')
+			form.card-form(action=`/admin/actualizarcarta/${idhero}`, method='patch')
 				label(for='urlImagen') URL de la imagen:
 				input(type='text', name='urlImagen',id='urlImagen', value=hero.urlImagen , required)
 				label(for='clase') Clase:
@@ -38,4 +38,4 @@ html(lang='es')
 					option(value='false') Inactivo
 				label(for='desc') Descripción:
 				textarea(name='desc',id='desc', required)
-				button(type='submit') Crear carta
+				button(type='submit') Actualizar carta

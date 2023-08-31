@@ -65,11 +65,12 @@ const mostrarFormularioCreacion = (req, res) => {
   const mostrarFormularioActualizacion = async (req, res) => {
     try {
       const allHeroes = await HeroModel.getAllHeroes(); // Llama al método del modelo para obtener los héroes 
-      const Id = req.params // Obtener el ID del héroe de los parámetros de la ruta
+      const idHero = req.params.id; // Obtener el valor del parámetro :id
   
       res.render('actualizarcarta', {
         pagina: 'Actualizar Carta',
-        hero: allHeroes // Enviar los datos del héroe a la vista
+        hero: allHeroes ,// Enviar los datos del héroe a la vista
+        idhero: idHero // Pasar el valor del ID a la vista
       });
     } catch (error) {
       console.error(error);
