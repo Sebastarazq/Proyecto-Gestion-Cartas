@@ -27,31 +27,31 @@ const mostrarCartas = async (req, res) => {
 };
 
 const mostrarFormularioCreacion = (req, res) => {
-    res.render('crearcarta2', {
+    res.render('crearcarta', {
       pagina: 'Crear Carta'
     });
   };
 
   const crearCarta = async (req, res) => {
     try {
-        const cartaData = {
-            urlImagen: req.body.urlImagen,
-            clase: req.body.clase,
-            tipo: req.body.tipo,
-            poder: req.body.poder,
-            vida: req.body.vida,
-            defensa: req.body.defensa,
-            ataqueBase: req.body.ataqueBase,
-            ataqueDado: req.body.ataqueDado,
-            danoMax: req.body.danoMax,
-            activo: req.body.activo,
-            desc: req.body.desc
-        };
+      const formData = new FormData();
+        formData.append('urlImagen', req.body.urlImagen);
+        formData.append('clase', req.body.clase);
+        formData.append('tipo', req.body.tipo);
+        formData.append('poder', req.body.poder);
+        formData.append('vida', req.body.vida);
+        formData.append('defensa', req.body.defensa);
+        formData.append('ataqueBase', req.body.ataqueBase);
+        formData.append('ataqueDado', req.body.ataqueDado);
+        formData.append('danoMax', req.body.danoMax);
+        formData.append('activo', req.body.activo);
+        formData.append('desc', req.body.desc);
+    
+      console.log('Datos enviados desde el formulario:', formData);
+      const createdHero = await HeroModel.createHero(formData);
+  
 
-        console.log('Datos enviados desde el formulario:', cartaData);
-        const createdHero = await HeroModel.createHero(cartaData);
-
-        console.log('Carta creada:', createdHero);
+      console.log('Carta creada:', createdHero);
 
         // Agregamos un alert para mostrar un mensaje en el navegador
         res.send('<script>alert("Carta creada exitosamente!"); window.location.href = "/admin/heroes";</script>');
