@@ -18,7 +18,8 @@ html(lang='en')
         a(href='#') Perfil
     br
     center
-      a(href = '/admin/crearcarta').add-card-button Añadir carta
+      .add-card-button
+        a(href = '/admin/crearcarta').link Añadir carta
     br
     .caja
       each hero in heroes
@@ -28,13 +29,14 @@ html(lang='en')
               .imagen_carta
                 img(src=hero.UrlImagen, alt='Imagen de la carta')
               .info_carta
+              .carta_padding
                 .nombre_carta
                   h2= hero.Clase
                 .descripcion_carta
                   p= hero.Tipo
                 .botones_carta
-                  a.modificar(href=`/admin/modificarcarta/${hero.Id}`) Modificar
-                  button.suspender(type='button', data-hero-id=hero.Id, data-is-active=hero.activo)
+                  a.modificar(href=`/admin/modificarcarta/${hero.Id}`, class="link") Modificar
+                  button.suspender(class="link",type='button', data-hero-id=hero.Id, data-is-active=hero.activo)
                     | #{hero.activo ? 'Suspender' : 'Activar'}
 
 

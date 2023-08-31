@@ -135,5 +135,7 @@ export {
   mostrarCartas,
   mostrarFormularioCreacion,
   crearCarta,
+  mostrarFormularioModificacion,
+  modificarCarta,
   cambiarEstadoHeroe
 };

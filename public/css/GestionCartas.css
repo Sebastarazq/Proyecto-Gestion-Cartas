@@ -6,7 +6,7 @@ body{
 }
 
 .header {
-    background-image: url('/img/header.jpeg');
+    background-image: url('../img/header.jpeg');
     background-size: cover;
     background-position: center;
     height: 88px; 
@@ -34,13 +34,21 @@ body{
     background-color: rgba(255, 255, 255, 0.1);
 }
 
+.link {
+    position: relative;
+    text-decoration: none;
+    color: black;
+    font-family: Arial, Helvetica, sans-serif;
+    top: 25%;
+}
+
 .add-card-button {
     width: 150px;
-    height: 50px;
+    height: 40px;
     background-color: #c0a776;
     border: 5px solid #bd9c5a;
     opacity: 90%;
-    border-radius: 10px;
+    border-radius: 50px;
 }
 
 .add-card-button:hover {
@@ -51,7 +59,7 @@ body{
     display: flex;
     flex-direction: row;
     margin: 0 auto;
-    width: 90%;
+    width: 80%;
     background-color: hsl(208, 100%, 97%,.4);
     border-radius: 5px;
     flex-wrap: wrap;
@@ -60,6 +68,7 @@ body{
 
 .columna {
     width: 33.33%;
+    max-width: 400px;
     padding: 1em;
     overflow: auto;
     box-sizing: border-box;
@@ -103,10 +112,15 @@ body{
     cursor: pointer;
 }
 
-.carta {
-    box-sizing: border-box;
-  }
-
+.carta{
+    position: relative;
+    height: 500px;
+    width: 65%;
+    border: 1px solid black;
+    background: aliceblue;
+    justify-content: center;
+    text-align: center;
+}
 
 .save_button {
     width: 150px;
@@ -121,42 +135,17 @@ body{
     cursor: pointer;
 }
 
-.carta-contenedor {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    border: 1px solid black;
-    background: aliceblue;
-    padding: 10px;
-    border-radius: 5px;
-    box-sizing: border-box;
-}
-   
-
 .carta_padding{
     position: absolute;
     bottom: 20px;
     width: 100%;
 }
-.imagen_carta {
+
+.imagen_carta img{
     width: 100%;
-    max-height: 500px; /* Aumenta la altura del contenedor de imágenes según tus necesidades */
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
- }
-  
- .imagen_carta img {
-    width: auto;
-    height: auto;
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
-}
-.info_carta {
-  margin-top: 10px;
-  text-align: center;
+    height: 100%;
+    max-height: 350px;
+    max-width: 250px;
 }
 /* Estilos de la paginación */
 .pagination {

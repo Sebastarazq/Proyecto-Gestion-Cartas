@@ -22,5 +22,5 @@ app.use('/', appRoutes)
 //Definir un puerto y arrancar el proyecto
 const port = 3000;
 app.listen(port, () =>{
-    console.log(`El servidor esta funcionando en http://localhost:${port}`)
+    console.log(`El servidor esta funcionando en https://localhost:${port}`)
 });
