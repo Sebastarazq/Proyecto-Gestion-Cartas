@@ -63,46 +63,6 @@ class HeroModel {
         }
     }
 
-  // Método para obtener una carta por su ID
-  static async obtenerCartaPorId(cartaId) {
-    try {
-        const response = await fetch(`${apiUrl}/${cartaId}`);
-        
-        if (!response.ok) {
-            throw new Error(`Error en la solicitud: ${response.statusText}`);
-        }
-        
-        const carta = await response.text(); // Cambia a response.text() para obtener la respuesta como objeto text
-        return carta;
-    } catch (error) {
-        console.error('Error al obtener la carta:', error);
-        throw error;
-    }
-  }
-
-  // Método para actualizar una carta por su ID
-  static async actualizarCartaPorId(cartaId, cartaData) {
-    try {
-        console.log('Solicitud a enviar:', cartaData);
-
-        const response = await fetch(`${apiUrl}/${cartaId}`, {
-            method: 'patch',
-            body: JSON.stringify(cartaData), // Asegúrate de convertir los datos a formato JSON
-        });
-
-        if (!response.ok) {
-            throw new Error(`Error en la solicitud: ${response.statusText}`);
-        }
-
-        const updatedCarta = await response.text(); // Cambia a response.text() para obtener la respuesta como objeto text
-        return updatedCarta;
-    } catch (error) {
-        console.error('Error al actualizar la carta:', error);
-        throw error;
-    }
-  }
-
-
 }  
 
 export default HeroModel;
