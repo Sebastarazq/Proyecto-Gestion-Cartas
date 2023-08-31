@@ -1,41 +1,75 @@
 doctype html
 html(lang='es')
-	head
-		meta(charset='UTF-8')
-		meta(name='viewport', content='width=device-width,initial-scale=1')
-		title Formulario Héroe
-		link(rel='stylesheet', href='/css/crearCarta.css')
-	body
-		.banner
-			main
-				img(src='/img/banner.png', alt='banner')
-				h1 CREACIÓN DE CARTAS
-		.container
-			header
-				h1 Crear nueva carta
-			form.card-form(action='/admin/crearcarta', method='post')
-				label(for='urlImagen') URL de la imagen:
-				input#imageURL(type='text', name='urlImagen',id='urlImagen', required)
-				label(for='clase') Clase:
-				input#class(type='text', name='clase',id='clase', required)
-				label(for='tipo') Tipo:
-				input#type(type='text', name='tipo',id='tipo', required)
-				label(for='poder') Poder:
-				input#power(type='number', name='poder',id='poder', required)
-				label(for='vida') Vida:
-				input#life(type='number', name='vida',id='vida', required)
-				label(for='defensa') Defensa:
-				input#defense(type='number', name='defensa',id='defensa', required)
-				label(for='ataqueBase') Ataque Base:
-				input#baseAttack(type='number', name='ataqueBase',id='ataqueBase', required)
-				label(for='ataqueDado') Ataque Dado:
-				input#diceAttack(type='number', name='ataqueDado', required)
-				label(for='danoMax') Ataque Máximo:
-				input#maxAttack(type='number', name='danoMax',id='danoMax', required)
-				label(for='activo') Estado:
-				select#status(name='estado',id='activo', required)
-					option(value='true') Activo
-					option(value='false') Inactivo
-				label(for='desc') Descripción:
-				textarea#description(name='desc',id='desc', required)
-				button(type='submit') Crear carta
+  head
+    meta(charset='UTF-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    link(rel='stylesheet', href='/css/crearCarta.css')
+    title CREACIÓN DE CARTAS
+  body
+    .banner
+      main
+        img(src='/img/banner.png', alt='banner')
+        h1 CREACIÓN DE CARTAS
+    .info
+      h2 Información de la carta
+      br
+      form#form(action='/admin/crearcarta', method='post', class='form-container')
+        label(for='nombre') Nombre:
+        input#nombre.styled-input(type='text', name='nombre', required)
+        br
+        br
+        label(for='tipo') Tipo de héroe:
+        select#tipo.styled-input(name='tipo', required)
+          option(value='heroe1') Guerrero Tanque
+          option(value='heroe2') Guerrero Armas
+          option(value='heroe3') Mago Fuego
+          option(value='heroe4') Mago Hielo
+          option(value='heroe5') Pícaro Veneno
+          option(value='heroe6') Pícaro Machete
+        br
+        br
+        label(for='poder') Poder:
+        input#poder.styled-input(type='number', name='poder', required)
+        br
+        br
+        label(for='vida') Vida:
+        input#vida.styled-input(type='number', name='vida', required)
+        br
+        br
+        label(for='defensa') Defensa:
+        input#defensa.styled-input(type='number', name='defensa', required)
+        br
+        br
+        label(for='ataqueBase') Ataque Base:
+        input#ataqueBase.styled-input(type='number', name='ataqueBase', required)
+        br
+        br
+        label(for='ataqueDado') Ataque Dado:
+        input#ataqueDado.styled-input(type='number', name='ataqueDado', required)
+        br
+        br
+        label(for='danoMax') Daño Máximo:
+        input#danoMax.styled-input(type='number', name='danoMax', required)
+        br
+        br
+        label(for='urlImagen') URL de Imagen:
+        input#urlImagen.styled-input(type='text', name='urlImagen', required)
+        br
+        br
+        label(for='clase') Clase:
+        input#clase.styled-input(type='text', name='clase', required)
+        br
+        br
+        label(for='activo') Activo:
+        select#activo.styled-input(name='activo', required)
+          option(value='true') Activo
+          option(value='false') Inactivo
+        br
+        br
+        label(for='desc') Descripción:
+        input#desc.styled-input(type='text', name='desc')
+        br
+        br
+        button.submit-button(type='submit') Guardar
+      .carta_visual
+        img(src='/img/carta.png', alt='Imagen de la carta')
