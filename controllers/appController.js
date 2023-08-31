@@ -60,6 +60,58 @@ const mostrarFormularioCreacion = (req, res) => {
         res.status(500).json({ error: 'Error al crear la carta' });
     }
 };
+
+const mostrarFormularioModificacion = async (req, res) => {
+  try {
+    const cartaId = req.params.id; // Obtén el ID de la carta desde los parámetros de la URL
+    const carta = await obtenerCartaPorId(cartaId);
+
+    if (!carta) {
+      return res.status(404).json({ error: 'Carta no encontrada' });
+    }
+
+    res.render('modificarcarta', {
+      pagina: 'Modificar Carta',
+      carta: carta // Pasa los datos de la carta al formulario
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Error al cargar el formulario de modificación' });
+  }
+};
+
+const modificarCarta = async (req, res) => {
+  try {
+    const cartaId = req.params.id; // Obtén el ID de la carta desde los parámetros de la URL
+
+    const cartaData = {
+      urlImagen: req.body.urlImagen,
+      clase: req.body.clase,
+      tipo: req.body.tipo,
+      poder: req.body.poder,
+      vida: req.body.vida,
+      defensa: req.body.defensa,
+      ataqueBase: req.body.ataqueBase,
+      ataqueDado: req.body.ataqueDado,
+      danoMax: req.body.danoMax,
+      activo: req.body.activo,
+      desc: req.body.desc
+    };
+
+    console.log('Datos enviados desde el formulario:', cartaData);
+    
+    const updatedCarta = await actualizarCartaPorId(cartaId, cartaData);
+
+    console.log('Carta actualizada:', updatedCarta);
+
+    // Agregamos un alert para mostrar un mensaje en el navegador
+    res.send('<script>alert("Carta modificada exitosamente!"); window.location.href = "/admin/heroes";</script>');
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Error al modificar la carta' });
+  }
+};
+
 // appController.js
 
 const cambiarEstadoHeroe = async (req, res) => {
