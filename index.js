@@ -1,9 +1,12 @@
 import express  from "express";
 import appRoutes from './routes/appRoutes.js'
+import connect from './config/db.js'
 
 //Crear la app
 
 const app = express();
+
+
 
 // Habilitar pug
 app.set('view engine','pug') //usar pug
@@ -24,3 +27,5 @@ const port = 3000;
 app.listen(port, () =>{
     console.log(`El servidor esta funcionando en http://localhost:${port}`)
 });
+ //conexion db
+connect()
