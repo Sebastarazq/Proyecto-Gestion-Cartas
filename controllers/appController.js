@@ -107,53 +107,76 @@ const crearHeroe = async (req, res) => {
 };
 
 
-// appController.js
+const mostrarFormularioActualizacion = async (req, res) => {
+  try {
+    const idHero = req.params.Id; // Obtener el valor del parámetro :id
 
-  const mostrarFormularioActualizacion = async (req, res) => {
-    try {
-      const allHeroes = await HeroModel.getAllHeroes(); // Llama al método del modelo para obtener los héroes 
-      const idHero = req.params.Id; // Obtener el valor del parámetro :id
-      console.log(idHero)
-  
-      res.render('actualizarcarta', {
-        pagina: 'Actualizar Carta',
-        hero: allHeroes ,// Enviar los datos del héroe a la vista
-        idhero: idHero // Pasar el valor del ID a la vista
-      });
-    } catch (error) {
-      console.error(error);
-      res.render('error'); // Renderiza una vista de error en caso de problemas
+    console.log('ID del héroe a actualizar:', idHero); // Agregar este registro para verificar el ID
+
+    const hero = await HeroModel.findById(idHero); // Obtener un héroe por su ID
+
+    console.log('Héroe encontrado:', hero); // Agregar este registro para verificar el héroe
+
+    if (!hero) {
+      // Si no se encontró el héroe, puedes manejarlo adecuadamente aquí
+      return res.status(404).render('error', { error: 'Héroe no encontrado' });
     }
-  };
+
+    res.render('actualizarcarta', {
+      pagina: 'Actualizar Carta',
+      hero: hero, // Enviar el héroe específico a la vista
+    });
+  } catch (error) {
+    console.error(error);
+    res.render('error'); // Renderizar una vista de error en caso de problemas
+  }
+};
+
+
 
   const actualizarCarta = async (req, res) => {
     try {
-        const cartaId = req.params.Id; // Obtener el ID de los parámetros de la ruta
-        const formData = new FormData();
-        formData.append('urlImagen', req.body.urlImagen);
-        formData.append('clase', req.body.clase);
-        formData.append('tipo', req.body.tipo);
-        formData.append('poder', req.body.poder);
-        formData.append('vida', req.body.vida);
-        formData.append('defensa', req.body.defensa);
-        formData.append('ataqueBase', req.body.ataqueBase);
-        formData.append('ataqueDado', req.body.ataqueDado);
-        formData.append('danoMax', req.body.danoMax);
-        formData.append('activo', req.body.activo);
-        formData.append('desc', req.body.desc);
-
-        console.log('Datos enviados desde el formulario:', formData);
-        const updateHero = await HeroModel.updateHero(cartaId, formData); // Pasar el ID al modelo
-
-        console.log('Carta actualizada:', updateHero);
-
-        // Agregamos un alert para mostrar un mensaje en el navegador
-        res.send('<script>alert("Carta actualizada exitosamente!"); window.location.href = "/admin/heroes";</script>');
+      // Obtén los datos del formulario
+      const formData = req.body;
+      const file = req.file; // El archivo subido
+  
+      // Construye la URL de la imagen
+      const urlImagen = file ? `http://localhost:3000/img/${file.filename}` : formData.urlImagen;
+  
+      // Encuentra y actualiza la carta existente por su ID
+      const cartaId = req.params.id; // Asume que pasas el ID en la URL
+      const carta = await CartaModel.findByIdAndUpdate(
+        cartaId,
+        {
+          urlImagen,
+          clase: formData.clase,
+          tipo: formData.tipo,
+          poder: parseInt(formData.poder),
+          vida: parseInt(formData.vida),
+          defensa: parseInt(formData.defensa),
+          ataqueBase: parseInt(formData.ataqueBase),
+          ataqueDado: parseInt(formData.ataqueDado),
+          danoMax: parseInt(formData.danoMax),
+          activo: formData.activo === 'true', // Convierte el valor a booleano
+          desc: formData.desc,
+        },
+        { new: true } // Devuelve el documento actualizado
+      );
+  
+      if (!carta) {
+        return res.status(404).json({ error: 'Carta no encontrada' });
+      }
+  
+      console.log('Carta actualizada:', carta);
+  
+      // Redirige al usuario a otra página o muestra un mensaje de éxito
+      res.send('<script>alert("Carta actualizada exitosamente!"); window.location.href = "/admin/cartas";</script>');
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Error al actualizar la carta' });
+      console.error(error);
+      res.status(500).json({ error: 'Error al actualizar la carta' });
     }
-};
+  };
+  
 
   
 
