@@ -1,32 +1,35 @@
-const suspendButtons = document.querySelectorAll('.suspender');
+async function cambiarEstadoHeroe(e) {
+  console.log('Clic en el botón de suspender');
+  const heroId = e.target.dataset.heroId; // Obtener el ID del héroe
+  const isActive = e.target.dataset.isActive === 'true'; // Obtener el estado activo/inactivo del héroe
 
-suspendButtons.forEach(button => {
-  button.addEventListener('click', async event => {
-    const heroId = event.target.dataset.heroId; // Obtener el ID del héroe
-    console.log('Hero ID:', heroId); // Verifica que se obtenga el ID correctamente
+  try {
+    const url = `/admin/cambiarestadoheroe/${heroId}`;
+    const nuevoEstado = !isActive; // Cambiar el estado
 
-    try {
-      const formData = new FormData();
-      formData.append('activo', event.target.dataset.isActive === 'true' ? 'false' : 'true');
+    const respuesta = await fetch(url, {
+      method: 'PUT', // Usa el método PUT para cambiar el estado del héroe
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ activo: nuevoEstado }), // Envía el nuevo estado en el cuerpo
+    });
 
-      const response = await fetch(`http://prime.bucaramanga.upb.edu.co/api/heroes/${heroId}`, {
-        method: 'PATCH', // Usa el método PATCH para cambiar el estado del héroe
-        body: formData
-      });
+    const { message } = await respuesta.json();
 
-      if (response.ok) {
-        // Cambiar el estado del botón y la clase de la carta
-        event.target.dataset.isActive = formData.get('activo');
-        event.target.textContent = formData.get('activo') === 'true' ? 'Suspender' : 'Activar';
+    if (respuesta.ok) {
+      // Cambiar el estado del botón y la clase de la carta
+      e.target.dataset.isActive = nuevoEstado;
+      e.target.textContent = nuevoEstado ? 'Activar' : 'Suspender';
 
-        const carta = event.target.closest('.carta');
-        carta.classList.toggle('suspended'); // Cambiar la clase para cambiar el color
-      } else {
-        console.error('Error al cambiar el estado del héroe.');
-      }
-    } catch (error) {
-      console.error(error);
+      const carta = e.target.closest('.carta');
+      carta.classList.toggle('suspended'); // Cambiar la clase para cambiar el color
+
+      alert(message); // Muestra un mensaje de éxito
+    } else {
+      console.error('Error al cambiar el estado del héroe.');
     }
-  });
-  
-});
+  } catch (error) {
+    console.error(error);
+  }
+}

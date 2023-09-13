@@ -19,25 +19,36 @@ html(lang='en')
     br
     center
       .add-card-button
-        a(href = '/admin/crearcarta').link Añadir Heroe
+        a(href='/admin/crearcarta').link Añadir Heroe
     br
     .caja
       each hero in heroes
         .columna
-          .carta
-            .carta-contenedor
-              .imagen_carta
-                img(src=hero.urlImagen, alt='Imagen de la carta')
-              .info_carta
-              .carta_padding
-                .nombre_carta
-                  h2= hero.clase
-                .descripcion_carta
-                  p= hero.tipo
-                .botones_carta
-                  a.modificar(href=`/admin/actualizarcarta/${hero._id}`, class="link") Modificar
-                  button.suspender(class="link", type='button', data-hero-id=hero._id, data-is-active=hero.activo)
-                    | #{hero.activo ? 'Suspender' : 'Activar'}
+          div.v49_153
+            div.v49_3
+            div.v49_4
+            div.v49_5
+            div.v49_6
+            div.v49_8
+            span.v49_9 Mago fuego
+            span.v49_10 Poder: 1
+            span.v49_11 Vida: 20
+            span.v49_12 Defensa: 10
+            span.v49_13 Ataque: 10 + 1d8
+            span.v49_14 Daño: 1d6
+            div.v49_15
+            span.v49_16 Daño efectivo: 6
+            div.v49_17
+            span.v49_18 Atacar
+            div.v49_19
+            div.v49_20
+            span.v49_21 P
+            span.v49_22 +
+            span.v49_23 Progreso
+            div.v49_24
+            div.v49_25
+            span.v49_26 15
+            div.v49_27
         br
     center
       ul.pagination

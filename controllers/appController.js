@@ -35,7 +35,7 @@ const mostrarHeroes = async (req, res) => {
 const mostrarArmaduras = async (req, res) => {
   try {
     const page = req.query.page || 1; // Obtén el número de página de la consulta
-    const ITEMS_PER_PAGE = 10; // Define la cantidad de armaduras por página
+    const ITEMS_PER_PAGE = 3; // Define la cantidad de armaduras por página
 
     // Realiza una consulta a la base de datos para obtener las armaduras
     const allArmaduras = await ArmaduraModel.find(); // Esto obtendrá todas las armaduras
@@ -161,6 +161,29 @@ const actualizarCarta = async (req, res) => {
   }
 };
 
+// Controlador para cambiar el estado activo del héroe
+const cambiarEstadoHeroe = async (req, res) => {
+  try {
+    const heroId = req.params.Id; // Obtener el ID del héroe de los parámetros
+    console.log('Hero ID:', heroId); // Agregar un console.log para verificar el ID
+
+    const hero = await HeroModel.findById(heroId);
+
+    if (!hero) {
+      return res.status(404).json({ error: 'Héroe no encontrado' });
+    }
+
+    // Cambiar el estado activo del héroe
+    hero.activo = !hero.activo;
+    console.log('Nuevo estado activo:', hero.activo); // Agregar un console.log para verificar el nuevo estado
+    await hero.save();
+
+    res.status(200).json({ message: 'Estado del héroe actualizado exitosamente' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Error al cambiar el estado del héroe' });
+  }
+};
 
 
 export {
@@ -169,5 +192,6 @@ export {
   mostrarFormularioCreacion,
   crearHeroe,
   mostrarFormularioActualizacion,
-  actualizarCarta
+  actualizarCarta,
+  cambiarEstadoHeroe
 };

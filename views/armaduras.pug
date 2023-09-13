@@ -19,8 +19,19 @@ html(lang='en')
     br
     .caja
       each armadura in armaduras
-        pre
-          | #{JSON.stringify(armadura, null, 2)}
+        .columna
+          .carta
+            .carta-contenedor
+              .imagen_carta
+                img(src=armadura.urlImagen, alt='Imagen de la armadura')
+              .info_carta
+                .nombre_carta
+                  h2= armadura.heroe 
+                .descripcion_carta
+                  p= armadura.tipo  
+                  p= armadura.efecto.statEffect + " " + armadura.efecto.stat 
+                  p= armadura.activo ? 'Activo' : 'Inactivo'
+                  p= armadura.desc 
     center
       ul.pagination
         each pageNum in Array(totalPages).fill().map((_, i) => i + 1)

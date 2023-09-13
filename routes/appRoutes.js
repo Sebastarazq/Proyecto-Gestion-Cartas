@@ -1,6 +1,7 @@
 import express from "express";
 import multerMiddleware from "../middlewares/multer.js"; // Importa el middleware Multer
-import { mostrarHeroes,mostrarArmaduras, crearHeroe, mostrarFormularioCreacion , mostrarFormularioActualizacion,actualizarCarta} from "../controllers/appController.js";
+import { mostrarHeroes,mostrarArmaduras, crearHeroe, mostrarFormularioCreacion , mostrarFormularioActualizacion,actualizarCarta,
+cambiarEstadoHeroe} from "../controllers/appController.js";
 
 const router = express.Router()
 
@@ -18,5 +19,7 @@ router.post('/admin/crearcarta', multerMiddleware.single('urlImagen'), crearHero
 router.get('/admin/actualizarcarta/:Id', mostrarFormularioActualizacion);
 router.post('/admin/actualizarcarta/:Id', actualizarCarta);
 
+// Ruta para cambiar el estado del héroe
+router.put('/admin/cambiarestadoheroe/:Id', cambiarEstadoHeroe);
 
 export default router;
