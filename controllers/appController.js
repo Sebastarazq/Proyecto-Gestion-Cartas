@@ -134,51 +134,38 @@ const mostrarFormularioActualizacion = async (req, res) => {
 
 
 
-  const actualizarCarta = async (req, res) => {
-    try {
-      // Obtén los datos del formulario
-      const formData = req.body;
-      const file = req.file; // El archivo subido
-  
-      // Construye la URL de la imagen
-      const urlImagen = file ? `http://localhost:3000/img/${file.filename}` : formData.urlImagen;
-  
-      // Encuentra y actualiza la carta existente por su ID
-      const cartaId = req.params.id; // Asume que pasas el ID en la URL
-      const carta = await CartaModel.findByIdAndUpdate(
-        cartaId,
-        {
-          urlImagen,
-          clase: formData.clase,
-          tipo: formData.tipo,
-          poder: parseInt(formData.poder),
-          vida: parseInt(formData.vida),
-          defensa: parseInt(formData.defensa),
-          ataqueBase: parseInt(formData.ataqueBase),
-          ataqueDado: parseInt(formData.ataqueDado),
-          danoMax: parseInt(formData.danoMax),
-          activo: formData.activo === 'true', // Convierte el valor a booleano
-          desc: formData.desc,
-        },
-        { new: true } // Devuelve el documento actualizado
-      );
-  
-      if (!carta) {
-        return res.status(404).json({ error: 'Carta no encontrada' });
-      }
-  
-      console.log('Carta actualizada:', carta);
-  
-      // Redirige al usuario a otra página o muestra un mensaje de éxito
-      res.send('<script>alert("Carta actualizada exitosamente!"); window.location.href = "/admin/cartas";</script>');
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ error: 'Error al actualizar la carta' });
-    }
-  };
-  
+const actualizarCarta = async (req, res) => {
+  try {
+    const idHero = req.params.Id; // Obtener el valor del parámetro :id
+    const formData = req.body; // Obtener los datos del formulario
+
+    // Buscar la carta por su ID y actualizarla con los nuevos datos del formulario, excluyendo la imagen
+    await HeroModel.findByIdAndUpdate(idHero, {
+      clase: formData.clase,
+      tipo: formData.tipo,
+      poder: parseInt(formData.poder),
+      vida: parseInt(formData.vida),
+      defensa: parseInt(formData.defensa),
+      ataqueBase: parseInt(formData.ataqueBase),
+      ataqueDado: parseInt(formData.ataqueDado),
+      danoMax: parseInt(formData.danoMax),
+      activo: formData.activo === 'true',
+      desc: formData.desc,
+    });
+
+    console.log('Carta actualizada con éxito.');
+
+    // Redirigir al usuario a la página de detalles de la carta actualizada o a donde desees.
+    res.redirect(`/admin/heroes/`); // Cambia la ruta según tus necesidades
+  } catch (error) {
+    console.error(error);
+    res.render('error'); // Renderiza una vista de error en caso de problemas
+  }
+};
+
 
   
+
 
 export {
   mostrarHeroes,

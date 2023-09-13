@@ -14,9 +14,9 @@ router.get('/admin/armaduras', mostrarArmaduras);
 router.get('/admin/crearcarta', mostrarFormularioCreacion);
 router.post('/admin/crearcarta', multerMiddleware.single('urlImagen'), crearHeroe); // Utiliza el middleware Multer
 
-// Ruta para mostrar el formulario de creación de carta y enviarlo
+// Ruta para mostrar el formulario de actualizar carta y enviarlo
 router.get('/admin/actualizarcarta/:Id', mostrarFormularioActualizacion);
-router.patch('/admin/actualizarcarta/:Id', actualizarCarta);
+router.post('/admin/actualizarcarta/:Id', actualizarCarta);
 
 
 export default router;
