@@ -3,7 +3,7 @@ html(lang='en')
   head
     meta(charset='UTF-8')
     meta(name='viewport', content='width=device-width,initial-scale=1')
-    title Gestion Cartas
+    title Gestion Heroes
     link(rel='stylesheet', type='text/css', href='/css/GestionCartas.css')
     link(href='https://fonts.googleapis.com/css2?family=Barlow:wght@500;600;800&family=Irish+Grover&family=Playfair+Display:wght@700&family=Raleway:wght@400;700;900&display=swap', rel='stylesheet')
   body
@@ -27,19 +27,17 @@ html(lang='en')
           .carta
             .carta-contenedor
               .imagen_carta
-                img(src=hero.UrlImagen, alt='Imagen de la carta')
+                img(src=hero.urlImagen, alt='Imagen de la carta')
               .info_carta
               .carta_padding
                 .nombre_carta
-                  h2= hero.Clase
+                  h2= hero.clase
                 .descripcion_carta
-                  p= hero.Tipo
+                  p= hero.tipo
                 .botones_carta
-                  a.modificar(href=`/admin/actualizarcarta/${hero.Id}`, class="link") Modificar
-                  button.suspender(class="link",type='button', data-hero-id=hero.Id, data-is-active=hero.activo)
+                  a.modificar(href=`/admin/actualizarcarta/${hero._id}`, class="link") Modificar
+                  button.suspender(class="link", type='button', data-hero-id=hero._id, data-is-active=hero.activo)
                     | #{hero.activo ? 'Suspender' : 'Activar'}
-
-
         br
     center
       ul.pagination
