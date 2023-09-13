@@ -132,8 +132,6 @@ const mostrarFormularioActualizacion = async (req, res) => {
   }
 };
 
-
-
 const actualizarCarta = async (req, res) => {
   try {
     const idHero = req.params.Id; // Obtener el valor del parámetro :id
@@ -155,16 +153,14 @@ const actualizarCarta = async (req, res) => {
 
     console.log('Carta actualizada con éxito.');
 
-    // Redirigir al usuario a la página de detalles de la carta actualizada o a donde desees.
-    res.redirect(`/admin/heroes/`); // Cambia la ruta según tus necesidades
+    // Agregar un script de alert después de la redirección
+    res.send('<script>alert("Carta actualizada con éxito."); window.location.href = "/admin/heroes/";</script>');
   } catch (error) {
     console.error(error);
     res.render('error'); // Renderiza una vista de error en caso de problemas
   }
 };
 
-
-  
 
 
 export {
