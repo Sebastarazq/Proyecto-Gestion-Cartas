@@ -113,9 +113,11 @@ h1 {
   background-color: #bd9c5a;
 }
 
+
 /* Estilos para mostrar el nombre del archivo seleccionado */
 .card-form .file-name {
   margin-top: 5px;
   font-size: 14px;
-  color: #555;
+  color: #000000; /* Cambia el color del texto aquí */
 }
+
