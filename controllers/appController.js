@@ -76,7 +76,7 @@ const mostrarFormularioCreacion = (req, res) => {
       const file = req.file; // El archivo subido
   
       // Construye la URL de la imagen
-      const urlImagen = `http://localhost:3000/img/${file.filename}`;
+      const urlImagen = `http://4.246.161.219:3000/img/${file.filename}`;
   
       // Genera valores aleatorios para Ataque Dado y Ataque Máximo (entre 1 y 10)
       const ataqueDado = Math.floor(Math.random() * 10) + 1; // Número aleatorio entre 1 y 10
