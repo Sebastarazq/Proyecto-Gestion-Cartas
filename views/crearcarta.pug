@@ -19,7 +19,10 @@ html(lang='es')
           input(type='file', name='urlImagen', id='urlImagen', accept='image/*', required, style='position: absolute; opacity: 0;')
           span.file-name(id='file-name-span')
         label(for='clase') Clase:
-        input(type='text', name='clase', id='clase', required)
+        select(name='clase', id='clase', required)
+          option(value='Guerrero') Guerrero
+          option(value='Mago') Mago
+          option(value='Pícaro') Pícaro
         label(for='tipo') Tipo:
         select(name='tipo', id='tipo', required)
           option(value='Tanque') Tanque
@@ -36,10 +39,6 @@ html(lang='es')
         input(type='number', name='defensa', id='defensa', required)
         label(for='ataqueBase') Ataque Base:
         input(type='number', name='ataqueBase', id='ataqueBase', required)
-        label(for='ataqueDado') Ataque Dado:
-        input(type='number', name='ataqueDado', required)
-        label(for='danoMax') Ataque Máximo:
-        input(type='number', name='danoMax', id='danoMax', required)
         label(for='activo') Estado:
         select(name='activo', id='activo', required)
           option(value='true') Activo
@@ -47,4 +46,4 @@ html(lang='es')
         label(for='desc') Descripción:
         textarea(name='desc', id='desc', required)
         button(type='submit') Crear carta
-  script(src="/js/scriptImagen.js") 
+  script(src="/js/scriptImagen.js")

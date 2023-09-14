@@ -69,42 +69,46 @@ const mostrarFormularioCreacion = (req, res) => {
   };
 
 
-const crearHeroe = async (req, res) => {
-  try {
-    // Obtén los datos del formulario
-    const formData = req.body;
-    const file = req.file; // El archivo subido
-
-    // Construye la URL de la imagen
-    const urlImagen = `http://localhost:3000/img/${file.filename}`;
-
-    // Crea un nuevo héroe utilizando el modelo
-    const newHero = new HeroModel({
-      urlImagen,
-      clase: formData.clase,
-      tipo: formData.tipo,
-      poder: parseInt(formData.poder),
-      vida: parseInt(formData.vida),
-      defensa: parseInt(formData.defensa),
-      ataqueBase: parseInt(formData.ataqueBase),
-      ataqueDado: parseInt(formData.ataqueDado),
-      danoMax: parseInt(formData.danoMax),
-      activo: formData.activo === 'true', // Convierte el valor a booleano
-      desc: formData.desc,
-    });
-
-    // Guarda el nuevo héroe en la base de datos
-    await newHero.save();
-
-    console.log('Héroe creado:', newHero);
-
-    // Redirige al usuario a otra página o muestra un mensaje de éxito
-    res.send('<script>alert("Héroe creado exitosamente!"); window.location.href = "/admin/heroes";</script>');
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Error al crear el héroe' });
-  }
-};
+  const crearHeroe = async (req, res) => {
+    try {
+      // Obtén los datos del formulario
+      const formData = req.body;
+      const file = req.file; // El archivo subido
+  
+      // Construye la URL de la imagen
+      const urlImagen = `http://localhost:3000/img/${file.filename}`;
+  
+      // Genera valores aleatorios para Ataque Dado y Ataque Máximo (entre 1 y 10)
+      const ataqueDado = Math.floor(Math.random() * 10) + 1; // Número aleatorio entre 1 y 10
+      const danoMax = Math.floor(Math.random() * 10) + 1; // Número aleatorio entre 1 y 10
+  
+      // Crea un nuevo héroe utilizando el modelo
+      const newHero = new HeroModel({
+        urlImagen,
+        clase: formData.clase,
+        tipo: formData.tipo,
+        poder: parseInt(formData.poder),
+        vida: parseInt(formData.vida),
+        defensa: parseInt(formData.defensa),
+        ataqueBase: parseInt(formData.ataqueBase),
+        ataqueDado,
+        danoMax,
+        activo: formData.activo === 'true', // Convierte el valor a booleano
+        desc: formData.desc,
+      });
+  
+      // Guarda el nuevo héroe en la base de datos
+      await newHero.save();
+  
+      console.log('Héroe creado:', newHero);
+  
+      // Redirige al usuario a otra página o muestra un mensaje de éxito
+      res.send('<script>alert("Héroe creado exitosamente!"); window.location.href = "/admin/heroes";</script>');
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Error al crear el héroe' });
+    }
+  };  
 
 
 const mostrarFormularioActualizacion = async (req, res) => {
