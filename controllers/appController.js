@@ -211,11 +211,11 @@ const crearArmadura = async (req, res) => {
       heroe: formData.heroe,
       tipo: formData.tipo,
       efecto: {
-        case: parseInt(formData.efecto.case),
-        statEffect: parseInt(formData.efecto.statEffect),
+        case: formData.efecto.case,
+        statEffect: formData.efecto.statEffect,
         stat: formData.efecto.stat,
         target: formData.efecto.target,
-        turnCount: parseInt(formData.efecto.turnCount),
+        turnCount: formData.efecto.turnCount,
       },
       activo: formData.activo === 'true', // Convierte el valor a booleano
       desc: formData.desc,
@@ -262,27 +262,29 @@ const mostrarFormularioActualizacionArmadura = async (req, res) => {
 
 const actualizarArmadura = async (req, res) => {
   try {
-    const idHero = req.params.Id; // Obtener el valor del parámetro :id
+    const idArmadura = req.params.Id; // Obtener el valor del parámetro :id
     const formData = req.body; // Obtener los datos del formulario
 
     // Buscar la carta por su ID y actualizarla con los nuevos datos del formulario, excluyendo la imagen
-    await HeroModel.findByIdAndUpdate(idHero, {
-      clase: formData.clase,
+    await ArmaduraModel.findByIdAndUpdate(idArmadura, {
+      urlImagen,
+      heroe: formData.heroe,
       tipo: formData.tipo,
-      poder: parseInt(formData.poder),
-      vida: parseInt(formData.vida),
-      defensa: parseInt(formData.defensa),
-      ataqueBase: parseInt(formData.ataqueBase),
-      ataqueDado: parseInt(formData.ataqueDado),
-      danoMax: parseInt(formData.danoMax),
-      activo: formData.activo === 'true',
+      efecto: {
+        case: parseInt(formData.efecto.case),
+        statEffect: parseInt(formData.efecto.statEffect),
+        stat: formData.efecto.stat,
+        target: formData.efecto.target,
+        turnCount: parseInt(formData.efecto.turnCount),
+      },
+      activo: formData.activo === 'true', // Convierte el valor a booleano
       desc: formData.desc,
     });
 
     console.log('Carta actualizada con éxito.');
 
     // Agregar un script de alert después de la redirección
-    res.send('<script>alert("Carta actualizada con éxito."); window.location.href = "/admin/heroes/";</script>');
+    res.send('<script>alert("Carta actualizada con éxito."); window.location.href = "/admin/armaduras/";</script>');
   } catch (error) {
     console.error(error);
     res.render('error'); // Renderiza una vista de error en caso de problemas
