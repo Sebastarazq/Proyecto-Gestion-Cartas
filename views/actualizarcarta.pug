@@ -9,10 +9,10 @@ html(lang='es')
     .banner
       main
         img(src='/img/banner.png', alt='banner')
-        h1 ACTUALIZACIÓN DE Heroes
+        h1 ACTUALIZACIÓN DE HEROES
     .container
       header
-        h1 Actualizar Heroes
+        h1 Actualizar Heroe: #{hero.clase} #{hero.tipo}
       form.card-form(action=`/admin/actualizarcarta/${hero._id}`, method='post')
         label(for='clase') Clase:
         input(type='text', name='clase', id='clase', required, value=hero.clase)
