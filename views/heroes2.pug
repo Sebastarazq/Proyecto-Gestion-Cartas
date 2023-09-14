@@ -3,8 +3,8 @@ html(lang='en')
   head
     meta(charset='UTF-8')
     meta(name='viewport', content='width=device-width,initial-scale=1')
-    title Gestion Heroes
-    link(rel='stylesheet', type='text/css', href='/css/GestionCartas.css')
+    title Gestion Cartas
+    link(rel='stylesheet', type='text/css', href='css/tailwind.css')
     link(href='https://fonts.googleapis.com/css2?family=Barlow:wght@500;600;800&family=Irish+Grover&family=Playfair+Display:wght@700&family=Raleway:wght@400;700;900&display=swap', rel='stylesheet')
   body
     header.header
@@ -15,44 +15,52 @@ html(lang='en')
       nav.nav
         a(href='#') Mi banco
         a(href='#') Jugar online
-        a(href='#') Perfil
+        a(href='PerfilUsuario.html') Perfil
     br
     center
       .add-card-button
-        a(href='/admin/crearcarta').link Añadir Heroe
+        a.link(href) Añadir carta
     br
     .caja
-      each hero in heroes
+      each carta in cartas
         .columna
-          div.v49_153
-            div.v49_3
-            div.v49_4
-            div.v49_5
-            div.v49_6
-            div.v49_8
-            span.v49_9 Mago fuego
-            span.v49_10 Poder: 1
-            span.v49_11 Vida: 20
-            span.v49_12 Defensa: 10
-            span.v49_13 Ataque: 10 + 1d8
-            span.v49_14 Daño: 1d6
-            div.v49_15
-            span.v49_16 Daño efectivo: 6
-            div.v49_17
-            span.v49_18 Atacar
-            div.v49_19
-            div.v49_20
-            span.v49_21 P
-            span.v49_22 +
-            span.v49_23 Progreso
-            div.v49_24
-            div.v49_25
-            span.v49_26 15
-            div.v49_27
-        br
+          #bordeCarta.carta2.2xl.md\:w-200.md\:h-290(style='background:rgba(17,18,18,1); color:white; border:1px solid rgba(255,244,0,1);', data-tilt, data-tilt-max='15', data-tilt-speed='400', data-tilt-perspective='1000')
+            .titulo
+              p.2xl:text-18.md:text-15= carta.nombre_carta
+            img.2xl:h-150.md:sm:h-110(src='https://okdiario.com/img/2017/01/04/caballeros-edad-media-curiosidades-655x368.jpg', alt='')
+            .contenido
+              div
+                p.2xl:text-16.md:text-15 Poder: #{carta.poder}
+                p.2xl:text-16.md:text-15 Vida: #{carta.vida}
+                p.2xl:text-16.md:text-15 Defensa: #{carta.defensa}
+              div
+                p.2xl:text-16.md:text-15 Ataque: #{carta.ataqueBase}
+                p.2xl:text-16.md:text-15 Dano: #{carta.danoMax}
+            div(style='justify-content: end;')
+              button.modificar(type='button') Modificar
+              button.suspender(type='button') Suspender
+    br
     center
-      ul.pagination
-        each pageNum in Array(totalPages).fill().map((_, i) => i + 1)
-          li
-            a(href=`/admin/heroes?page=${pageNum}`, class=pageNum === currentPage ? 'current' : '')= pageNum
-  script(src='/js/scriptCartas.js')
+      button.save_button(type='button', onclick='addCard()') Guardar
+    br
+    #myModal.modal
+      .modal-content
+        span.close ×
+        .modal-content-inner
+          .image-container
+            img#modalImage(src, alt='Imagen de la carta')
+          .text-container
+            h2#modalCardName Nombre de la carta
+            p#modalCardDescription Descripción de la carta
+      .time-suspension
+        label(for='suspensionTime') Tiempo de suspensión:
+        select#suspensionTime
+          option(value='7') 7 días
+          option(value='15') 15 días
+          option(value='30') 1 mes
+          option(value='90') 3 meses
+          option(value='150') 5 meses
+          option(value='indefinite') Indefinido
+      .button-container
+        button#confirmSuspension Suspender
+  script(src='/js/suspendercartas.js')
