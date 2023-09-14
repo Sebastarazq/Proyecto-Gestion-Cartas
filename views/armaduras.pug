@@ -17,6 +17,10 @@ html(lang='en')
         a(href='#') Jugar online
         a(href='#') Perfil
     br
+    center
+      .add-card-button
+        a(href = '/admin/creararmadura').link Añadir Armadura
+    br
     .caja
       each armadura in armaduras
         .columna
@@ -32,8 +36,14 @@ html(lang='en')
                   p= armadura.efecto.statEffect + " " + armadura.efecto.stat 
                   p= armadura.activo ? 'Activo' : 'Inactivo'
                   p= armadura.desc 
+                .botones_carta
+                  a.modificar(href=`/admin/actualizararmadura/${armadura._id}`, class="link") Modificar
+                  button.suspender(class="link", type='button', data-armadura-id=armadura._id, data-is-active=armadura.activo, onclick="cambiarEstadoArmadura(event)")
+                    | #{armadura.activo ? 'Suspender' : 'Activar'}
+                
     center
       ul.pagination
         each pageNum in Array(totalPages).fill().map((_, i) => i + 1)
           li
             a(href=`/admin/armaduras?page=${pageNum}`, class=pageNum === currentPage ? 'current' : '')= pageNum
+  script(src='/js/scriptArmaduras.js')
