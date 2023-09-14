@@ -5,7 +5,7 @@ const armaduraSchema = new mongoose.Schema({
   heroe: String,
   tipo: String,
   efecto: {
-    case: Number,
+    case: { type: Number, name: 'case' }, // Nombre en la base de datos es 'case'
     statEffect: Number,
     stat: String,
     target: String,

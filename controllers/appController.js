@@ -205,35 +205,37 @@ const crearArmadura = async (req, res) => {
     // Construye la URL de la imagen
     const urlImagen = `http://4.246.161.219:3000/img/${file.filename}`;
 
+    console.log('formData:', formData);
+    console.log('formData.efecto:', formData.efecto);
+
     // Crea un nuevo héroe utilizando el modelo
     const newArmadura = new ArmaduraModel({
       urlImagen,
       heroe: formData.heroe,
       tipo: formData.tipo,
       efecto: {
-        case: formData.efecto.case,
-        statEffect: formData.efecto.statEffect,
-        stat: formData.efecto.stat,
-        target: formData.efecto.target,
-        turnCount: formData.efecto.turnCount,
+        case: formData['efecto.case'],
+        statEffect: formData['efecto.statEffect'],
+        stat: formData['efecto.stat'],
+        target: formData['efecto.target'],
+        turnCount: formData['efecto.turnCount'],
       },
-      activo: formData.activo === 'true', // Convierte el valor a booleano
+      activo: formData.activo === 'true',
       desc: formData.desc,
     });
     
-
-    // Guarda el nuevo héroe en la base de datos
+    console.log('Armadura creada:', newArmadura);
+    // Guarda la nueva armadura en la base de datos
     await newArmadura.save();
 
-    console.log('Héroe creado:', newArmadura);
-
     // Redirige al usuario a otra página o muestra un mensaje de éxito
-    res.send('<script>alert("Armadura creado exitosamente!"); window.location.href = "/admin/armaduras";</script>');
+    res.send('<script>alert("Armadura creada exitosamente!"); window.location.href = "/admin/armaduras";</script>');
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Error al crear la Armadura' });
   }
 };
+
 
 const mostrarFormularioActualizacionArmadura = async (req, res) => {
   try {
