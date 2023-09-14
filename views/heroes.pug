@@ -36,7 +36,7 @@ html(lang='en')
                   p= hero.tipo
                 .botones_carta
                   a.modificar(href=`/admin/actualizarcarta/${hero._id}`, class="link") Modificar
-                  button.suspender(class="link", type='button', data-hero-id=hero._id, data-is-active=hero.activo)
+                  button.suspender(class="link", type='button', data-hero-id=hero._id, data-is-active=hero.activo, onclick="cambiarEstadoHeroe(event)")
                     | #{hero.activo ? 'Suspender' : 'Activar'}
         br
     center
