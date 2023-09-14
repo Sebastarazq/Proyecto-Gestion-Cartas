@@ -37,7 +37,6 @@ html(lang='en')
                 .descripcion_carta
                   p= armadura.tipo  
                   p= armadura.efecto.statEffect + " " + armadura.efecto.stat 
-                  p= armadura.activo ? 'Activo' : 'Inactivo'
                   p= armadura.desc 
                 .botones_carta
                   a.modificar(href=`/admin/actualizararmadura/${armadura._id}`, class="link") Modificar

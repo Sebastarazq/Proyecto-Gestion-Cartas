@@ -269,17 +269,16 @@ const actualizarArmadura = async (req, res) => {
 
     // Buscar la carta por su ID y actualizarla con los nuevos datos del formulario, excluyendo la imagen
     await ArmaduraModel.findByIdAndUpdate(idArmadura, {
-      urlImagen,
       heroe: formData.heroe,
       tipo: formData.tipo,
       efecto: {
-        case: parseInt(formData.efecto.case),
-        statEffect: parseInt(formData.efecto.statEffect),
-        stat: formData.efecto.stat,
-        target: formData.efecto.target,
-        turnCount: parseInt(formData.efecto.turnCount),
+        case: formData['efecto.case'],
+        statEffect: formData['efecto.statEffect'],
+        stat: formData['efecto.stat'],
+        target: formData['efecto.target'],
+        turnCount: formData['efecto.turnCount'],
       },
-      activo: formData.activo === 'true', // Convierte el valor a booleano
+      activo: formData.activo === 'true',
       desc: formData.desc,
     });
 
