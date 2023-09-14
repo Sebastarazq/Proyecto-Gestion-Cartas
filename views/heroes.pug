@@ -18,8 +18,12 @@ html(lang='en')
         a(href='#') Perfil
     br
     center
-      .add-card-button
-        a(href = '/admin/crearcarta').link Añadir Heroe
+      .button-container
+        .add-card-button
+          a(href = '/admin/crearcarta').link Añadir Heroe
+        .add-card-button
+          a(href = '/admin/armaduras').link Armaduras
+
     br
     .caja
       each hero in heroes

@@ -18,8 +18,11 @@ html(lang='en')
         a(href='#') Perfil
     br
     center
-      .add-card-button
-        a(href = '/admin/creararmadura').link Añadir Armadura
+      .button-container
+        .add-card-button
+          a(href = '/admin/creararmadura').link Añadir Armadura
+        .add-card-button
+          a(href = '/admin/heroes').link Heroes
     br
     .caja
       each armadura in armaduras

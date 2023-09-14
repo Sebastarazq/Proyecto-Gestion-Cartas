@@ -42,6 +42,11 @@ body{
     top: 25%;
 }
 
+.button-container {
+    display: flex;
+    justify-content: center; /* Centra los elementos horizontalmente */
+}
+
 .add-card-button {
     width: 150px;
     height: 40px;
@@ -49,6 +54,11 @@ body{
     border: 5px solid #bd9c5a;
     opacity: 90%;
     border-radius: 50px;
+    margin-right: 10px; /* Espacio entre los botones */
+}
+
+.add-card-button:last-child {
+    margin-right: 0; /* Elimina el margen derecho del último botón */
 }
 
 .add-card-button:hover {
