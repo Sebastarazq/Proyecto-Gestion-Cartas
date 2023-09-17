@@ -1,6 +1,47 @@
 import HeroModel from '../models/Heroe.js';
 import ArmaduraModel from '../models/Armadura.js';
 import mongoose from 'mongoose';
+import jwt from 'jsonwebtoken';
+
+// Definir un usuario y contraseña de administrador
+const usuarioAdmin = 'admin';
+const contrasenaAdmin = 'admin123';
+
+// Controlador para mostrar el formulario de inicio de sesión
+const mostrarFormularioInicioSesion = (req, res) => {
+  res.render('iniciarsesion', {
+    pagina: 'Iniciar Sesion'
+  });
+};
+
+// Controlador para autenticar al usuario
+const autenticarUsuario = (req, res) => {
+  const { usuario, contrasena } = req.body;
+
+  // Verificar si las credenciales coinciden con el usuario y contraseña de administrador
+  if (usuario === usuarioAdmin && contrasena === contrasenaAdmin) {
+    // Las credenciales son válidas, genera un token JWT
+    const token = jwt.sign({ usuario: usuarioAdmin }, 'gestioncartasnexubattle2omega', {
+      expiresIn: '1h', // Establece la duración del token como desees
+    });
+
+    // Asigna el token JWT a las cookies
+    res.cookie('jwt', token, {
+      httpOnly: true,
+      maxAge: 3600000, // Duración del token en milisegundos (1 hora en este ejemplo)
+      secure: false, // Cambia a true si usas HTTPS
+    });
+
+    // Redirige al usuario a la página protegida
+    res.redirect('/admin/heroes');
+  } else {
+    // Las credenciales son inválidas, muestra un mensaje de error o redirige a la página de inicio de sesión nuevamente
+    res.render('iniciarsesion', {
+      pagina: 'Iniciar Sesion',
+      error: 'Credenciales inválidas',
+    });
+  }
+};
 
 
 const mostrarHeroes = async (req, res) => {
@@ -317,6 +358,8 @@ const cambiarEstadoArmadura = async (req, res) => {
 };
 
 export {
+  mostrarFormularioInicioSesion,
+  autenticarUsuario,
   mostrarHeroes,
   mostrarArmaduras,
   mostrarFormularioCreacion,

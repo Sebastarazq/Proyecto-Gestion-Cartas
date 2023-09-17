@@ -1,11 +1,13 @@
 import express  from "express";
 import appRoutes from './routes/appRoutes.js'
 import connect from './config/db.js'
+import cookieParser from 'cookie-parser';
 
 //Crear la app
 
 const app = express();
 
+app.use(cookieParser()); // Usar cookie-parser para analizar las cookies
 
 
 // Habilitar pug
