@@ -1,7 +1,9 @@
 import express from "express";
 import multerMiddleware from "../middlewares/multer.js"; // Importa el middleware Multer
 import { jwttoken } from "../middlewares/token.js"; //importo el token
-import { mostrarFormularioInicioSesion,autenticarUsuario,mostrarHeroes,mostrarArmaduras, crearHeroe, mostrarFormularioCreacion , mostrarFormularioActualizacion,actualizarCarta,
+import { mostrarFormularioInicioSesion,autenticarUsuario,mostrarHeroes,mostrarArmaduras,mostrarFormularioCreacionArma, crearArma,
+mostrarArmas,mostrarFormularioActualizacionArma,actualizarArma,
+cambiarEstadoArma,crearHeroe, mostrarFormularioCreacion , mostrarFormularioActualizacion,actualizarCarta,
 cambiarEstadoHeroe, mostrarFormularioCreacionArmadura, crearArmadura, mostrarFormularioActualizacionArmadura, actualizarArmadura, 
 cambiarEstadoArmadura} from "../controllers/appController.js";
 
@@ -39,8 +41,22 @@ router.post('/admin/creararmadura',jwttoken, multerMiddleware.single('urlImagen'
 router.get('/admin/actualizararmadura/:Id',jwttoken, mostrarFormularioActualizacionArmadura);
 router.post('/admin/actualizararmadura/:Id',jwttoken, actualizarArmadura);
 
-// Ruta para cambiar el estado del héroe
+// Ruta para cambiar el estado de la armadura
 router.put('/admin/cambiarestadoarmadura/:Id',jwttoken, cambiarEstadoArmadura);
+
+// Mostrar armas
+router.get('/admin/armas',jwttoken,mostrarArmas);
+
+// Ruta para mostrar el formulario de armadura de carta y enviarlo
+router.get('/admin/creararma',jwttoken, mostrarFormularioCreacionArma);
+router.post('/admin/creararma',jwttoken, multerMiddleware.single('urlImagen'), crearArma); // Utiliza el middleware Multer
+
+// Ruta para mostrar el formulario de actualizar arma y enviarlo
+router.get('/admin/actualizararma/:Id',jwttoken, mostrarFormularioActualizacionArma);
+router.post('/admin/actualizararma/:Id',jwttoken, actualizarArma);
+
+// Ruta para cambiar el estado de la arma
+router.put('/admin/cambiarestadoarma/:Id',jwttoken, cambiarEstadoArma);
 
 
 export default router;

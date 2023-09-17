@@ -3,7 +3,7 @@ html(lang='en')
   head
     meta(charset='UTF-8')
     meta(name='viewport', content='width=device-width,initial-scale=1')
-    title Gestion Armaduras
+    title Gestion Armas
     link(rel='stylesheet', type='text/css', href='/css/GestionCartas.css')
     link(href='https://fonts.googleapis.com/css2?family=Barlow:wght@500;600;800&family=Irish+Grover&family=Playfair+Display:wght@700&family=Raleway:wght@400;700;900&display=swap', rel='stylesheet')
   body
@@ -20,32 +20,31 @@ html(lang='en')
     center
       .button-container
         .add-card-button
-          a(href = '/admin/creararmadura').link Añadir Armadura
+          a(href='/admin/creararma').link Añadir Arma
         .add-card-button
-          a(href = '/admin/heroes').link Heroes
+          a(href='/admin/heroes').link Heroes
     br
     .caja
-      each armadura in armaduras
+      each arma in armas
         .columna
           .carta
             .carta-contenedor
               .imagen_carta
-                img(src=armadura.urlImagen, alt='Imagen de la armadura')
+                img(src=arma.urlImagen, alt='Imagen del arma')
               .info_carta
                 .nombre_carta
-                  h2= armadura.heroe 
+                  h2= arma.nombre
                 .descripcion_carta
-                  p= `Tipo: ${armadura.tipo} `
-                  p= armadura.efecto.statEffect + " " + armadura.efecto.stat 
-                  p= armadura.desc 
+                  p= `Tipo de Héroe: ${arma.tipoHeroe}`
+                  p= arma.desc
                 .botones_carta
-                  a.modificar(href=`/admin/actualizararmadura/${armadura._id}`, class="link") Modificar
-                  button.suspender(class="link", type='button', data-armadura-id=armadura._id, data-is-active=armadura.activo, onclick="cambiarEstadoArmadura(event)")
-                    | #{armadura.activo ? 'Suspender' : 'Activar'}
+                  a.modificar(href=`/admin/actualizararma/${arma._id}`, class="link") Modificar
+                  button.suspender(class="link", type='button', data-arma-id=arma._id, data-is-active=arma.activo, onclick="cambiarEstadoArma(event)")
+                    | #{arma.activo ? 'Suspender' : 'Activar'}
                 
     center
       ul.pagination
         each pageNum in Array(totalPages).fill().map((_, i) => i + 1)
           li
-            a(href=`/admin/armaduras?page=${pageNum}`, class=pageNum === currentPage ? 'current' : '')= pageNum
-  script(src='/js/scriptArmaduras.js')
+            a(href=`/admin/armas?page=${pageNum}`, class=pageNum === currentPage ? 'current' : '')= pageNum
+  script(src='/js/scriptArmas.js')

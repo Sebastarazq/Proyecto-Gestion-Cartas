@@ -1,5 +1,6 @@
 import HeroModel from '../models/Heroe.js';
 import ArmaduraModel from '../models/Armadura.js';
+import ArmaModel from '../models/Arma.js';
 import mongoose from 'mongoose';
 import jwt from 'jsonwebtoken';
 
@@ -29,7 +30,7 @@ const autenticarUsuario = (req, res) => {
     res.cookie('jwt', token, {
       httpOnly: true,
       maxAge: 3600000, // Duración del token en milisegundos (1 hora en este ejemplo)
-      secure: false, // Cambia a true si usas HTTPS
+      secure: false, // Cambia a true si usa HTTPS
     });
 
     // Redirige al usuario a la página protegida
@@ -98,6 +99,153 @@ const mostrarArmaduras = async (req, res) => {
   } catch (error) {
     console.error(error);
     res.render("error");
+  }
+};
+const mostrarArmas = async (req, res) => {
+  try {
+    const page = req.query.page || 1; // Obtén el número de página de la consulta
+    const ITEMS_PER_PAGE = 3; // Define la cantidad de armas por página
+
+    // Realiza una consulta a la base de datos para obtener las armas
+    const allArmas = await ArmaModel.find({});
+
+    const startIndex = (page - 1) * ITEMS_PER_PAGE;
+    const endIndex = startIndex + ITEMS_PER_PAGE;
+    const currentArmas = allArmas.slice(startIndex, endIndex);
+
+    const totalPages = Math.ceil(allArmas.length / ITEMS_PER_PAGE);
+
+    res.render('armas', {
+      pagina: 'Gestión de Armas',
+      armas: currentArmas, // Pasa los datos de la página actual a la vista
+      currentPage: parseInt(page),
+      totalPages: totalPages
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Error interno del servidor' });
+  }
+};
+
+const mostrarFormularioCreacionArma = (req, res) => {
+  res.render('creararma', {
+    pagina: 'Crear Arma',
+  });
+};
+
+const crearArma = async (req, res) => {
+  try {
+    // Obtén los datos del formulario
+    const formData = req.body;
+    const file = req.file; // El archivo subido
+
+    // Construye la URL de la imagen
+    const urlImagen = `http://4.246.161.219:3000/img/${file.filename}`;
+
+    console.log('formData:', formData);
+    console.log('formData.efecto:', formData.efecto);
+
+    // Crea una nueva arma utilizando el modelo
+    const newArma = new ArmaModel({
+      urlImagen,
+      nombre: formData.nombre,
+      tipoHeroe: formData.tipoHeroe,
+      efecto: {
+        case: formData['efecto.case'],
+        statEffect: formData['efecto.statEffect'],
+        stat: formData['efecto.stat'],
+        target: formData['efecto.target'],
+        turnCount: formData['efecto.turnCount'],
+      },
+      activo: formData.activo === 'true',
+      desc: formData.desc,
+    });
+    
+    console.log('Arma creada:', newArma);
+    // Guarda la nueva arma en la base de datos
+    await newArma.save();
+
+    // Redirige al usuario a otra página o muestra un mensaje de éxito
+    res.send('<script>alert("Arma creada exitosamente!"); window.location.href = "/admin/armas";</script>');
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Error al crear el Arma' });
+  }
+};
+
+const mostrarFormularioActualizacionArma = async (req, res) => {
+  try {
+    const idArma = req.params.Id; // Obtener el valor del parámetro :id
+
+    console.log('ID del arma a actualizar:', idArma); // Agregar este registro para verificar el ID
+
+    const arma = await ArmaModel.findById(idArma); // Obtener un arma por su ID
+
+    console.log('Arma encontrada:', arma); // Agregar este registro para verificar el arma
+
+    if (!arma) {
+      // Si no se encontró el arma, puedes manejarlo adecuadamente aquí
+      return res.status(404).render('error', { error: 'Arma no encontrada' });
+    }
+
+    res.render('actualizararma', {
+      pagina: 'Actualizar Arma',
+      arma: arma, // Enviar el arma específico a la vista
+    });
+  } catch (error) {
+    console.error(error);
+    res.render('error'); // Renderizar una vista de error en caso de problemas
+  }
+};
+const actualizarArma = async (req, res) => {
+  try {
+    const idArma = req.params.Id; // Obtener el valor del parámetro :id
+    const formData = req.body; // Obtener los datos del formulario
+
+    // Buscar el arma por su ID y actualizarla con los nuevos datos del formulario
+    await ArmaModel.findByIdAndUpdate(idArma, {
+      nombre: formData.nombre,
+      tipoHeroe: formData.tipoHeroe,
+      efecto: {
+        case: formData['efecto.case'],
+        statEffect: formData['efecto.statEffect'],
+        stat: formData['efecto.stat'],
+        target: formData['efecto.target'],
+        turnCount: formData['efecto.turnCount'],
+      },
+      activo: formData.activo === 'true',
+      desc: formData.desc,
+    });
+
+    console.log('Arma actualizada con éxito.');
+
+    // Agregar un script de alert después de la redirección
+    res.send('<script>alert("Arma actualizada con éxito."); window.location.href = "/admin/armas/";</script>');
+  } catch (error) {
+    console.error(error);
+    res.render('error'); // Renderiza una vista de error en caso de problemas
+  }
+};
+const cambiarEstadoArma = async (req, res) => {
+  try {
+    const armaId = req.params.Id; // Obtener el ID del arma de los parámetros
+    console.log('Arma ID:', armaId); // Agregar un console.log para verificar el ID
+
+    const arma = await ArmaModel.findById(armaId);
+
+    if (!arma) {
+      return res.status(404).json({ error: 'Arma no encontrada' });
+    }
+
+    // Cambiar el estado activo del arma
+    arma.activo = !arma.activo;
+    console.log('Nuevo estado activo:', arma.activo); // Agregar un console.log para verificar el nuevo estado
+    await arma.save();
+
+    res.status(200).json({ message: 'Estado del arma actualizado exitosamente' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Error al cambiar el estado del arma' });
   }
 };
 
@@ -362,6 +510,12 @@ export {
   autenticarUsuario,
   mostrarHeroes,
   mostrarArmaduras,
+  mostrarArmas,
+  mostrarFormularioCreacionArma,
+  crearArma,
+  mostrarFormularioActualizacionArma,
+  actualizarArma,
+  cambiarEstadoArma,
   mostrarFormularioCreacion,
   crearHeroe,
   mostrarFormularioActualizacion,
