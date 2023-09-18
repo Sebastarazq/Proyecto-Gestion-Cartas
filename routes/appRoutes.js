@@ -24,7 +24,7 @@ router.post('/admin/crearcarta',jwttoken, multerMiddleware.single('urlImagen'), 
 
 // Ruta para mostrar el formulario de actualizar carta y enviarlo
 router.get('/admin/actualizarcarta/:Id',jwttoken, mostrarFormularioActualizacion);
-router.post('/admin/actualizarcarta/:Id',jwttoken, actualizarCarta);
+router.post('/admin/actualizarcarta/:Id',jwttoken,multerMiddleware.single('urlImagen'), actualizarCarta);
 
 // Ruta para cambiar el estado del héroe
 router.put('/admin/cambiarestadoheroe/:Id',jwttoken, cambiarEstadoHeroe);

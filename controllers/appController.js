@@ -343,11 +343,22 @@ const mostrarFormularioActualizacion = async (req, res) => {
 
 const actualizarCarta = async (req, res) => {
   try {
-    const idHero = req.params.Id; // Obtener el valor del parámetro :id
+    const idHeroe = req.params.Id; // Obtener el valor del parámetro :id
     const formData = req.body; // Obtener los datos del formulario
 
-    // Buscar la carta por su ID y actualizarla con los nuevos datos del formulario, excluyendo la imagen
-    await HeroModel.findByIdAndUpdate(idHero, {
+    // Obtener la URL de la imagen existente (por defecto)
+    let urlImagen = formData.urlImagen;
+
+    // Si se proporciona una nueva imagen, guarda la URL de la nueva imagen
+    if (req.file) {
+      // Construye la URL de la imagen actualizada
+      const baseUrl = 'http://4.246.161.219:3000'; // Cambia esto según la configuración de tu servidor
+      urlImagen = `${baseUrl}/img/${req.file.filename}`;
+    }
+
+    // Construye un objeto con los datos actualizados
+    const updatedData = {
+      urlImagen, // Actualiza la URL de la imagen
       clase: formData.clase,
       tipo: formData.tipo,
       poder: parseInt(formData.poder),
@@ -358,17 +369,21 @@ const actualizarCarta = async (req, res) => {
       danoMax: parseInt(formData.danoMax),
       activo: formData.activo === 'true',
       desc: formData.desc,
-    });
+    };
 
-    console.log('Carta actualizada con éxito.');
+    // Actualiza los datos del héroe en la base de datos
+    await HeroModel.findByIdAndUpdate(idHeroe, updatedData);
+
+    console.log('Héroe actualizado con éxito.');
 
     // Agregar un script de alert después de la redirección
-    res.send('<script>alert("Carta actualizada con éxito."); window.location.href = "/admin/heroes/";</script>');
+    res.send('<script>alert("Héroe actualizado con éxito."); window.location.href = "/admin/heroes/";</script>');
   } catch (error) {
     console.error(error);
     res.render('error'); // Renderiza una vista de error en caso de problemas
   }
 };
+
 
 // Controlador para cambiar el estado activo del héroe
 const cambiarEstadoHeroe = async (req, res) => {

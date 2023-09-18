@@ -13,7 +13,11 @@ html(lang='es')
     .container
       header
         h1 Actualizar Heroe: #{hero.clase} #{hero.tipo}
-      form.card-form(action=`/admin/actualizarcarta/${hero._id}`, method='post')
+      form.card-form(action=`/admin/actualizarcarta/${hero._id}`, method='post',enctype='multipart/form-data')
+        label(for='urlImagen')
+          span.custom-upload-button Subir imagen:
+          input(type='file', name='urlImagen', id='urlImagen', accept='image/*', required, style='position: absolute; opacity: 0;')
+          span.file-name(id='file-name-span')
         label(for='clase') Clase:
         input(type='text', name='clase', id='clase', required, value=hero.clase)
         label(for='tipo') Tipo:
@@ -43,3 +47,4 @@ html(lang='es')
         label(for='desc') Descripción:
         textarea(name='desc', id='desc', required)= hero.desc
         button(type='submit') Actualizar carta
+  script(src="/js/scriptImagen.js")
