@@ -13,7 +13,11 @@ html(lang='es')
     .container
       header
         h1 Actualizar Arma
-      form.card-form(action=`/admin/actualizararma/${arma._id}`, method='post')
+      form.card-form(action=`/admin/actualizararma/${arma._id}`, method='post', enctype='multipart/form-data')
+        label(for='urlImagen')
+          span.custom-upload-button Subir imagen:
+          input(type='file', name='urlImagen', id='urlImagen', accept='image/*', required, style='position: absolute; opacity: 0;')
+          span.file-name(id='file-name-span')
         label(for='nombre') Nombre:
         input(type='text', name='nombre', id='nombre', required, value=arma.nombre)
         label(for='tipoHeroe') Tipo de Héroe:
@@ -41,3 +45,4 @@ html(lang='es')
         label(for='desc') Descripción:
         textarea(name='desc', id='desc', required)= arma.desc
         button(type='submit') Actualizar Arma
+  script(src="/js/scriptImagen.js")

@@ -53,7 +53,7 @@ router.post('/admin/creararma',jwttoken, multerMiddleware.single('urlImagen'), c
 
 // Ruta para mostrar el formulario de actualizar arma y enviarlo
 router.get('/admin/actualizararma/:Id',jwttoken, mostrarFormularioActualizacionArma);
-router.post('/admin/actualizararma/:Id',jwttoken, actualizarArma);
+router.post('/admin/actualizararma/:Id', jwttoken, multerMiddleware.single('urlImagen'), actualizarArma);
 
 // Ruta para cambiar el estado de la arma
 router.put('/admin/cambiarestadoarma/:Id',jwttoken, cambiarEstadoArma);

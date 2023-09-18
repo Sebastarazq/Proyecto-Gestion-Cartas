@@ -202,8 +202,19 @@ const actualizarArma = async (req, res) => {
     const idArma = req.params.Id; // Obtener el valor del parámetro :id
     const formData = req.body; // Obtener los datos del formulario
 
-    // Buscar el arma por su ID y actualizarla con los nuevos datos del formulario
-    await ArmaModel.findByIdAndUpdate(idArma, {
+    // Obtener la URL de la imagen existente (por defecto)
+    let urlImagen = formData.urlImagen;
+
+    // Si se proporciona una nueva imagen, guarda la URL de la nueva imagen
+    if (req.file) {
+      // Construye la URL de la imagen actualizada
+      const baseUrl = 'http://4.246.161.219:3000'; // Cambia esto según la configuración de tu servidor
+      urlImagen = `${baseUrl}/img/${req.file.filename}`;
+    }
+
+    // Construye un objeto con los datos actualizados
+    const updatedData = {
+      urlImagen,
       nombre: formData.nombre,
       tipoHeroe: formData.tipoHeroe,
       efecto: {
@@ -215,7 +226,10 @@ const actualizarArma = async (req, res) => {
       },
       activo: formData.activo === 'true',
       desc: formData.desc,
-    });
+    };
+
+    // Actualiza los datos del arma en la base de datos
+    await ArmaModel.findByIdAndUpdate(idArma, updatedData);
 
     console.log('Arma actualizada con éxito.');
 
@@ -226,6 +240,8 @@ const actualizarArma = async (req, res) => {
     res.render('error'); // Renderiza una vista de error en caso de problemas
   }
 };
+
+
 const cambiarEstadoArma = async (req, res) => {
   try {
     const armaId = req.params.Id; // Obtener el ID del arma de los parámetros
