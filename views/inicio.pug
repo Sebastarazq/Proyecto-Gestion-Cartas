@@ -1,0 +1,42 @@
+doctype html
+html(lang='es')
+  head
+    meta(charset='UTF-8')
+    meta(name='viewport', content='width=device-width,initial-scale=1')
+    link(rel='stylesheet', href='/css/inicio.css')
+    
+    style.
+    title Gestión de Cartas
+  body(style='background-color: black;')
+    .banner
+      main
+        img(src='/img/banner.png', alt='banner')
+        h1 GESTIÓN DE CARTAS
+    .seleccionar
+      h2 A que sección te diriges?
+      .opciones
+        a(href='/admin/heroes')
+          .image-item
+            img(src='/img/carta.png', alt='Héroe')
+            p
+              span.button Heroes
+        a(href='/admin/armas')
+          .image-item
+            img(src='/img/carta.png', alt='Armas')
+            p
+              span.button Armas
+        a(href='/admin/armaduras')
+          .image-item
+            img(src='/img/carta.png', alt='Armaduras')
+            p
+              span.button Armaduras
+        a(href='/admin/items')
+          .image-item
+            img(src='/img/carta.png', alt='Objetos')
+            p
+              span.button Items
+        a(href='/admin/epicas')
+          .image-item
+            img(src='/img/carta.png', alt='Épicas')
+            p
+              span.button Epicas

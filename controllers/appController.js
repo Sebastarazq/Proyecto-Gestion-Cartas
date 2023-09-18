@@ -9,6 +9,13 @@ import jwt from 'jsonwebtoken';
 const usuarioAdmin = 'admin';
 const contrasenaAdmin = 'admin123';
 
+//inicio
+const inicio = (req,res) =>{
+  res.render('inicio', {
+    pagina: 'Inicio'
+  });
+}
+
 // Controlador para mostrar el formulario de inicio de sesión
 const mostrarFormularioInicioSesion = (req, res) => {
   res.render('iniciarsesion', {
@@ -35,7 +42,7 @@ const autenticarUsuario = (req, res) => {
     });
 
     // Redirige al usuario a la página protegida
-    res.redirect('/admin/heroes');
+    res.redirect('/');
   } else {
     // Las credenciales son inválidas, muestra un mensaje de error o redirige a la página de inicio de sesión nuevamente
     res.render('iniciarsesion', {
@@ -691,6 +698,7 @@ const cambiarEstadoItem = async (req, res) => {
 };
 
 export {
+  inicio,
   mostrarFormularioInicioSesion,
   autenticarUsuario,
   mostrarHeroes,

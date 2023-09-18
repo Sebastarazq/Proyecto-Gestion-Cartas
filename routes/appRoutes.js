@@ -1,7 +1,7 @@
 import express from "express";
 import multerMiddleware from "../middlewares/multer.js"; // Importa el middleware Multer
 import { jwttoken } from "../middlewares/token.js"; //importo el token
-import { mostrarFormularioInicioSesion,autenticarUsuario,mostrarHeroes,mostrarArmaduras,mostrarFormularioCreacionArma, crearArma,
+import { inicio,mostrarFormularioInicioSesion,autenticarUsuario,mostrarHeroes,mostrarArmaduras,mostrarFormularioCreacionArma, crearArma,
 mostrarArmas,mostrarFormularioActualizacionArma,actualizarArma,
 cambiarEstadoArma,crearHeroe, mostrarFormularioCreacion , mostrarFormularioActualizacion,actualizarCarta,
 cambiarEstadoHeroe, mostrarFormularioCreacionArmadura, crearArmadura, mostrarFormularioActualizacionArmadura, actualizarArmadura, 
@@ -9,6 +9,9 @@ cambiarEstadoArmadura, mostrarItems, mostrarFormularioCreacionItem, crearItem, m
 } from "../controllers/appController.js";
 
 const router = express.Router()
+
+//Ruta Principal
+router.get('/',jwttoken, inicio)
 
 // Ruta para mostrar el formulario de inicio de sesión
 router.get('/auth/iniciosesion', mostrarFormularioInicioSesion);
