@@ -5,7 +5,8 @@ import { mostrarFormularioInicioSesion,autenticarUsuario,mostrarHeroes,mostrarAr
 mostrarArmas,mostrarFormularioActualizacionArma,actualizarArma,
 cambiarEstadoArma,crearHeroe, mostrarFormularioCreacion , mostrarFormularioActualizacion,actualizarCarta,
 cambiarEstadoHeroe, mostrarFormularioCreacionArmadura, crearArmadura, mostrarFormularioActualizacionArmadura, actualizarArmadura, 
-cambiarEstadoArmadura} from "../controllers/appController.js";
+cambiarEstadoArmadura, mostrarItems, mostrarFormularioCreacionItem, crearItem, mostrarFormularioActualizacionItem, actualizarItem, cambiarEstadoItem,
+} from "../controllers/appController.js";
 
 const router = express.Router()
 
@@ -57,6 +58,20 @@ router.post('/admin/actualizararma/:Id', jwttoken, multerMiddleware.single('urlI
 
 // Ruta para cambiar el estado de la arma
 router.put('/admin/cambiarestadoarma/:Id',jwttoken, cambiarEstadoArma);
+
+// Mostrar items
+router.get('/admin/items',jwttoken, mostrarItems);
+
+// Ruta para mostrar el formulario de armadura de carta y enviarlo
+router.get('/admin/crearitem',jwttoken, mostrarFormularioCreacionItem);
+router.post('/admin/crearitem',jwttoken, multerMiddleware.single('urlImagen'), crearItem); // Utiliza el middleware Multer
+
+// Ruta para mostrar el formulario de actualizar Items y enviarlo
+router.get('/admin/actualizaritem/:Id',jwttoken, mostrarFormularioActualizacionItem);
+router.post('/admin/actualizaritem/:Id',jwttoken, actualizarItem);
+
+// Ruta para cambiar el estado de la Items
+router.put('/admin/cambiarestadoitem/:Id',jwttoken, cambiarEstadoItem);
 
 
 export default router;

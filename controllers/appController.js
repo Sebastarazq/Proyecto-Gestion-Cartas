@@ -1,6 +1,7 @@
 import HeroModel from '../models/Heroe.js';
 import ArmaduraModel from '../models/Armadura.js';
 import ArmaModel from '../models/Arma.js';
+import ItemModel from '../models/Item.js';
 import mongoose from 'mongoose';
 import jwt from 'jsonwebtoken';
 
@@ -101,6 +102,8 @@ const mostrarArmaduras = async (req, res) => {
     res.render("error");
   }
 };
+
+
 const mostrarArmas = async (req, res) => {
   try {
     const page = req.query.page || 1; // Obtén el número de página de la consulta
@@ -126,6 +129,35 @@ const mostrarArmas = async (req, res) => {
     res.status(500).json({ error: 'Error interno del servidor' });
   }
 };
+
+
+const mostrarItems = async (req, res) => {
+  try {
+    const page = req.query.page || 1; // Obtén el número de página de la consulta
+    const ITEMS_PER_PAGE = 3; // Define la cantidad de items por página
+
+    // Realiza una consulta a la base de datos para obtener las items
+    const allItems = await ItemModel.find({});
+
+    const startIndex = (page - 1) * ITEMS_PER_PAGE;
+    const endIndex = startIndex + ITEMS_PER_PAGE;
+    const currentItems = allItems.slice(startIndex, endIndex);
+
+    const totalPages = Math.ceil(allItems.length / ITEMS_PER_PAGE);
+
+    res.render('items', {
+      pagina: 'Gestión de Items',
+      items: currentItems, // Pasa los datos de la página actual a la vista
+      currentPage: parseInt(page),
+      totalPages: totalPages
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Error interno del servidor' });
+  }
+};
+
+
 
 const mostrarFormularioCreacionArma = (req, res) => {
   res.render('creararma', {
@@ -536,6 +568,128 @@ const cambiarEstadoArmadura = async (req, res) => {
   }
 };
 
+const mostrarFormularioCreacionItem = (req, res) => {
+  res.render('crearitem', {
+    pagina: 'Crear Item',
+  });
+};
+
+const crearItem = async (req, res) => {
+  try {
+    // Obtén los datos del formulario
+    const formData = req.body;
+    const file = req.file; // El archivo subido
+
+    // Construye la URL de la imagen
+    const urlImagen = `http://4.246.161.219:3000/img/${file.filename}`;
+
+    console.log('formData:', formData);
+    console.log('formData.efecto:', formData.efecto);
+
+    // Crea una nueva item utilizando el modelo
+    const newItem = new ItemModel({
+      urlImagen,
+      heroe: formData.heroe,
+      nombre: formData.nombre,
+      efecto: {
+        case: formData['efecto.case'],
+        statEffect: formData['efecto.statEffect'],
+        stat: [formData['efecto.stat']], // Esto permite una matriz de cadenas
+        target: formData['efecto.target'],
+        turnCount: formData['efecto.turnCount'],
+      },
+      activo: formData.activo === 'true',
+      desc: formData.desc,
+    });
+    
+    console.log('Arma creada:', newItem);
+    // Guarda la nueva arma en la base de datos
+    await newItem.save();
+
+    // Redirige al usuario a otra página o muestra un mensaje de éxito
+    res.send('<script>alert("Item creada exitosamente!"); window.location.href = "/admin/items";</script>');
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Error al crear el Item' });
+  }
+};
+
+const mostrarFormularioActualizacionItem = async (req, res) => {
+  try {
+    const idItem = req.params.Id; // Obtener el valor del parámetro :id
+
+    console.log('ID del item a actualizar:', idItem); // Agregar este registro para verificar el ID
+
+    const item = await ItemModel.findById(idItem); // Obtener un item por su ID
+
+    console.log('Item encontrada:', item); // Agregar este registro para verificar el item
+
+    if (!item) {
+      // Si no se encontró el item, puedes manejarlo adecuadamente aquí
+      return res.status(404).render('error', { error: 'item no encontrada' });
+    }
+
+    res.render('actualizaritem', {
+      pagina: 'Actualizar Item',
+      item: item, // Enviar el item específico a la vista
+    });
+  } catch (error) {
+    console.error(error);
+    res.render('error'); // Renderizar una vista de error en caso de problemas
+  }
+};
+const actualizarItem = async (req, res) => {
+  try {
+    const idItem = req.params.Id; // Obtener el valor del parámetro :id
+    const formData = req.body; // Obtener los datos del formulario
+
+    // Buscar el Item por su ID y actualizarla con los nuevos datos del formulario
+    await ItemModel.findByIdAndUpdate(idItem, {
+        heroe: formData.heroe,
+        nombre: formData.nombre,
+        efecto: {
+          case: formData['efecto.case'],
+          statEffect: formData['efecto.statEffect'],
+          stat: formData['efecto.stat'], // Esto permite una matriz de cadenas
+          target: formData['efecto.target'],
+          turnCount: formData['efecto.turnCount'],
+        },
+        activo: formData.activo === 'true',
+        desc: formData.desc,
+      });
+
+    console.log('Item actualizada con éxito.');
+
+    // Agregar un script de alert después de la redirección
+    res.send('<script>alert("Item actualizada con éxito."); window.location.href = "/admin/items/";</script>');
+  } catch (error) {
+    console.error(error);
+    res.render('error'); // Renderiza una vista de error en caso de problemas
+  }
+};
+const cambiarEstadoItem = async (req, res) => {
+  try {
+    const itemID = req.params.Id; // Obtener el ID del Item de los parámetros
+    console.log('Item ID:', itemID); // Agregar un console.log para verificar el ID
+
+    const item = await ItemModel.findById(itemID);
+
+    if (!item) {
+      return res.status(404).json({ error: 'Item no encontrada' });
+    }
+
+    // Cambiar el estado activo del item
+    item.activo = !item.activo;
+    console.log('Nuevo estado activo:', item.activo); // Agregar un console.log para verificar el nuevo estado
+    await item.save();
+
+    res.status(200).json({ message: 'Estado del item actualizado exitosamente' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Error al cambiar el estado del item' });
+  }
+};
+
 export {
   mostrarFormularioInicioSesion,
   autenticarUsuario,
@@ -557,4 +711,10 @@ export {
   mostrarFormularioActualizacionArmadura,
   actualizarArmadura,
   cambiarEstadoArmadura,
+  mostrarItems,
+  mostrarFormularioCreacionItem,
+  crearItem,
+  mostrarFormularioActualizacionItem,
+  actualizarItem,
+  cambiarEstadoItem,
 };
