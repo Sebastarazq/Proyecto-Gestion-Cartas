@@ -47,4 +47,4 @@ html(lang='en')
         each pageNum in Array(totalPages).fill().map((_, i) => i + 1)
           li
             a(href=`/admin/items?page=${pageNum}`, class=pageNum === currentPage ? 'current' : '')= pageNum
-  script(src='public/js/scriptitems.js')
+  script(src='public/js/scriptItems.js')
