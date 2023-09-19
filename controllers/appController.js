@@ -2,6 +2,7 @@ import HeroModel from '../models/Heroe.js';
 import ArmaduraModel from '../models/Armadura.js';
 import ArmaModel from '../models/Arma.js';
 import ItemModel from '../models/Item.js';
+import EpicaModel from '../models/Epica.js';
 import mongoose from 'mongoose';
 import jwt from 'jsonwebtoken';
 
@@ -163,6 +164,186 @@ const mostrarItems = async (req, res) => {
     res.status(500).json({ error: 'Error interno del servidor' });
   }
 };
+const mostrarEpicas = async (req, res) => {
+  try {
+    const page = req.query.page || 1; // Obtén el número de página de la consulta
+    const ITEMS_PER_PAGE = 3; // Define la cantidad de cartas épicas por página
+
+    // Realiza una consulta a la base de datos para obtener las cartas épicas
+    const allEpicas = await EpicaModel.find({});
+
+    const startIndex = (page - 1) * ITEMS_PER_PAGE;
+    const endIndex = startIndex + ITEMS_PER_PAGE;
+    const currentEpicas = allEpicas.slice(startIndex, endIndex);
+
+    const totalPages = Math.ceil(allEpicas.length / ITEMS_PER_PAGE);
+
+    res.render('epicas', {
+      pagina: 'Gestion cartas épicas',
+      epicas: currentEpicas, // Pasa los datos de la página actual a la vista
+      currentPage: parseInt(page),
+      totalPages: totalPages
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Error interno del servidor' });
+  }
+};
+
+const mostrarFormularioCreacionEpica = (req, res) => {
+  res.render('crearepica', {
+    pagina: 'Crear Épica',
+  });
+};
+
+const crearEpica = async (req, res) => {
+  try {
+    // Obtén los datos del formulario
+    const formData = req.body;
+    const file = req.file; // El archivo subido
+
+    // Construye la URL de la imagen
+    const urlImagen = `http://4.246.161.219:3000/img/${file.filename}`;
+
+    console.log('formData:', formData);
+
+    // Crea una nueva carta épica utilizando el modelo
+    const nuevaEpica = new EpicaModel({
+      urlImagen,
+      heroe: formData.heroe,
+      nombre: formData.nombre,
+      efectoGlobal: {
+        case: formData['efectoGlobal.case'],
+        statEffect: formData['efectoGlobal.statEffect'],
+        stat: formData['efectoGlobal.stat'],
+        target: formData['efectoGlobal.target'],
+        turnCount: formData['efectoGlobal.turnCount'],
+      },
+      efectoHeroe: {
+        case: formData['efectoHeroe.case'],
+        statEffect: formData['efectoHeroe.statEffect'],
+        stat: formData['efectoHeroe.stat'],
+        target: formData['efectoHeroe.target'],
+        turnCount: formData['efectoHeroe.turnCount'],
+      },
+      activo: formData.activo === 'true',
+      desc: formData.desc,
+    });
+
+    console.log('Épica creada:', nuevaEpica);
+
+    // Guarda la nueva carta épica en la base de datos
+    await nuevaEpica.save();
+
+    // Redirige al usuario a otra página o muestra un mensaje de éxito
+    res.send('<script>alert("Épica creada exitosamente!"); window.location.href = "/admin/epicas";</script>');
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Error al crear la Épica' });
+  }
+};
+
+const mostrarFormularioActualizacionEpica = async (req, res) => {
+  try {
+    const idEpica = req.params.Id; // Obtener el valor del parámetro :id
+
+    console.log('ID de la épica a actualizar:', idEpica); // Agregar este registro para verificar el ID
+
+    const epica = await EpicaModel.findById(idEpica); // Obtener una épica por su ID
+
+    console.log('Épica encontrada:', epica); // Agregar este registro para verificar la épica
+
+    if (!epica) {
+      // Si no se encontró la épica, puedes manejarlo adecuadamente aquí
+      return res.status(404).render('error', { error: 'Épica no encontrada' });
+    }
+
+    res.render('actualizarepica', {
+      pagina: 'Actualizar Épica',
+      epica: epica, // Enviar la épica específica a la vista
+    });
+  } catch (error) {
+    console.error(error);
+    res.render('error'); // Renderizar una vista de error en caso de problemas
+  }
+};
+
+
+const actualizarEpica = async (req, res) => {
+  try {
+    const idEpica = req.params.Id; // Obtener el valor del parámetro :id
+    const formData = req.body; // Obtener los datos del formulario
+
+    // Obtener la URL de la imagen existente (por defecto)
+    let urlImagen = formData.urlImagen;
+
+    // Si se proporciona una nueva imagen, guarda la URL de la nueva imagen
+    if (req.file) {
+      // Construye la URL de la imagen actualizada
+      const baseUrl = 'http://4.246.161.219:3000'; // Cambia esto según la configuración de tu servidor
+      urlImagen = `${baseUrl}/img/${req.file.filename}`;
+    }
+
+    // Construye un objeto con los datos actualizados
+    const updatedData = {
+      urlImagen,
+      heroe: formData.heroe,
+      nombre: formData.nombre,
+      efectoGlobal: {
+        case: formData['efectoGlobal.case'],
+        statEffect: formData['efectoGlobal.statEffect'],
+        stat: formData['efectoGlobal.stat'],
+        target: formData['efectoGlobal.target'],
+        turnCount: formData['efectoGlobal.turnCount'],
+      },
+      efectoHeroe: {
+        case: formData['efectoHeroe.case'],
+        statEffect: formData['efectoHeroe.statEffect'],
+        stat: formData['efectoHeroe.stat'],
+        target: formData['efectoHeroe.target'],
+        turnCount: formData['efectoHeroe.turnCount'],
+      },
+      activo: formData.activo === 'true',
+      desc: formData.desc,
+    };
+
+    // Actualiza los datos de la épica en la base de datos
+    await EpicaModel.findByIdAndUpdate(idEpica, updatedData);
+
+    console.log('Épica actualizada con éxito.');
+
+    // Agregar un script de alert después de la redirección
+    res.send('<script>alert("Épica actualizada con éxito."); window.location.href = "/admin/epicas/";</script>');
+  } catch (error) {
+    console.error(error);
+    res.render('error'); // Renderiza una vista de error en caso de problemas
+  }
+};
+
+
+const cambiarEstadoEpica = async (req, res) => {
+  try {
+    const epicaId = req.params.Id; // Obtener el ID de la épica de los parámetros
+    console.log('Épica ID:', epicaId); // Agregar un console.log para verificar el ID
+
+    const epica = await EpicaModel.findById(epicaId);
+
+    if (!epica) {
+      return res.status(404).json({ error: 'Épica no encontrada' });
+    }
+
+    // Cambiar el estado activo de la épica
+    epica.activo = !epica.activo;
+    console.log('Nuevo estado activo:', epica.activo); // Agregar un console.log para verificar el nuevo estado
+    await epica.save();
+
+    res.status(200).json({ message: 'Estado de la épica actualizado exitosamente' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Error al cambiar el estado de la épica' });
+  }
+};
+
 
 
 
@@ -704,6 +885,12 @@ export {
   mostrarHeroes,
   mostrarArmaduras,
   mostrarArmas,
+  mostrarEpicas,
+  mostrarFormularioCreacionEpica,
+  crearEpica,
+  mostrarFormularioActualizacionEpica,
+  actualizarEpica,
+  cambiarEstadoEpica,
   mostrarFormularioCreacionArma,
   crearArma,
   mostrarFormularioActualizacionArma,

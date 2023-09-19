@@ -1,9 +1,9 @@
 import express from "express";
 import multerMiddleware from "../middlewares/multer.js"; // Importa el middleware Multer
 import { jwttoken } from "../middlewares/token.js"; //importo el token
-import { inicio,mostrarFormularioInicioSesion,autenticarUsuario,mostrarHeroes,mostrarArmaduras,mostrarFormularioCreacionArma, crearArma,
-mostrarArmas,mostrarFormularioActualizacionArma,actualizarArma,
-cambiarEstadoArma,crearHeroe, mostrarFormularioCreacion , mostrarFormularioActualizacion,actualizarCarta,
+import { inicio,mostrarFormularioInicioSesion,autenticarUsuario,mostrarHeroes,mostrarArmaduras,mostrarEpicas,mostrarFormularioCreacionArma, crearArma,
+mostrarArmas,mostrarFormularioActualizacionArma,mostrarFormularioCreacionEpica,crearEpica,mostrarFormularioActualizacionEpica,actualizarEpica,actualizarArma,
+cambiarEstadoArma,crearHeroe, mostrarFormularioCreacion , mostrarFormularioActualizacion,actualizarCarta,cambiarEstadoEpica,
 cambiarEstadoHeroe, mostrarFormularioCreacionArmadura, crearArmadura, mostrarFormularioActualizacionArmadura, actualizarArmadura, 
 cambiarEstadoArmadura, mostrarItems, mostrarFormularioCreacionItem, crearItem, mostrarFormularioActualizacionItem, actualizarItem, cambiarEstadoItem,
 } from "../controllers/appController.js";
@@ -51,7 +51,7 @@ router.put('/admin/cambiarestadoarmadura/:Id',jwttoken, cambiarEstadoArmadura);
 // Mostrar armas
 router.get('/admin/armas',jwttoken,mostrarArmas);
 
-// Ruta para mostrar el formulario de armadura de carta y enviarlo
+// Ruta para mostrar el formulario de arma de carta y enviarlo
 router.get('/admin/creararma',jwttoken, mostrarFormularioCreacionArma);
 router.post('/admin/creararma',jwttoken, multerMiddleware.single('urlImagen'), crearArma); // Utiliza el middleware Multer
 
@@ -75,6 +75,22 @@ router.post('/admin/actualizaritem/:Id',jwttoken, actualizarItem);
 
 // Ruta para cambiar el estado de la Items
 router.put('/admin/cambiarestadoitem/:Id',jwttoken, cambiarEstadoItem);
+
+// Mostrar Epicas
+router.get('/admin/epicas',jwttoken, mostrarEpicas);
+
+// Ruta para mostrar el formulario de epica de carta y enviarlo
+router.get('/admin/crearepica',jwttoken, mostrarFormularioCreacionEpica);
+router.post('/admin/crearepica',jwttoken, multerMiddleware.single('urlImagen'), crearEpica); // Utiliza el middleware Multer
+
+// Ruta para mostrar el formulario de epica de carta y enviarlo
+router.get('/admin/actualizarepica/:Id',jwttoken, mostrarFormularioActualizacionEpica);
+router.post('/admin/actualizarepica/:Id',jwttoken, multerMiddleware.single('urlImagen'), actualizarEpica); // Utiliza el middleware Multer
+
+// Ruta para cambiar el estado de la epica
+router.put('/admin/cambiarestadoepica/:Id',jwttoken, cambiarEstadoEpica);
+
+
 
 
 export default router;
