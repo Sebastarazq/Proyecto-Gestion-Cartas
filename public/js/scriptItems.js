@@ -1,4 +1,4 @@
-async function cambiarEstadoArma(e) {
+async function cambiarEstadoItem(e) {
   console.log('Clic en el botón de suspender');
   const itemId = e.target.dataset.itemId; // Obtener el ID del item
   const isActive = e.target.dataset.isActive === 'true'; // Obtener el estado activo/inactivo del item
