@@ -55,6 +55,15 @@ body{
     opacity: 90%;
     border-radius: 50px;
     margin-right: 10px; /* Espacio entre los botones */
+    text-align: center; /* Centra horizontalmente el contenido */
+    display: block; /* Hace que el enlace ocupe todo el espacio del contenedor */
+}
+
+.add-card-button a {
+    display: block; /* Hace que el enlace ocupe todo el espacio del contenedor */
+    width: 100%; /* Ocupa todo el ancho del contenedor */
+    height: 100%; /* Ocupa todo el alto del contenedor */
+    text-decoration: none;
 }
 
 .add-card-button:last-child {
