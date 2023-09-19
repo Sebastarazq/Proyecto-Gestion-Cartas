@@ -3,7 +3,7 @@ html(lang='en')
   head
     meta(charset='UTF-8')
     meta(name='viewport', content='width=device-width,initial-scale=1')
-    title Gestion Armas
+    title Gestion Items 
     link(rel='stylesheet', type='text/css', href='/css/GestionCartas.css')
     link(href='https://fonts.googleapis.com/css2?family=Barlow:wght@500;600;800&family=Irish+Grover&family=Playfair+Display:wght@700&family=Raleway:wght@400;700;900&display=swap', rel='stylesheet')
   body
@@ -25,7 +25,6 @@ html(lang='en')
           a(href='/').link Inicio
     br
     .caja
-    if items && items.length > 0
       each item in items
         .columna
           .carta
@@ -42,12 +41,10 @@ html(lang='en')
                   a.modificar(href=`/admin/actualizaritem/${item._id}`, class="link") Modificar
                   button.suspender(class="link", type='button', data-item-id=item._id, data-is-active=item.activo, onclick="cambiarEstadoItem(event)")
                     | #{item.activo ? 'Suspender' : 'Activar'}
-    else
-      p No hay elementos para mostrar
                 
     center
       ul.pagination
         each pageNum in Array(totalPages).fill().map((_, i) => i + 1)
           li
             a(href=`/admin/items?page=${pageNum}`, class=pageNum === currentPage ? 'current' : '')= pageNum
-  script(src='/js/scriptItems.js')
+  script(src='public/js/scriptitems.js')
