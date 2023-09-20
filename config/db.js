@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const DB_URI = 'mongodb://nexusbattles2:foaQ52f1ESUBeq7Ml5QoKOQYHezlF1tdSiKP3sKdBpUYJK2gB52iIL92Sb78hQsr1ZxWIdVvoPUQACDbqDTSNg==@nexusbattles2.mongo.cosmos.azure.com:10255/nexusBattlesII?ssl=true&retrywrites=false&maxIdleTimeMS=120000&appName=@nexusbattles2@';
+const DB_URI = 'mongodb://nexusbattles2:VzLbMyQeTlfA40zQtpPc8zdG2tZSgJk5Jop2oWFpcVXJsH076LGZvwTDgeWbPDJmSRv2Hfqu58AEACDb3REjzg==@nexusbattles2.mongo.cosmos.azure.com:10255/nexusBattlesII?ssl=true&replicaSet=globaldb&retrywrites=false&maxIdleTimeMS=120000&appName=@nexusbattles2@';
 
 
 const connect = async () => {

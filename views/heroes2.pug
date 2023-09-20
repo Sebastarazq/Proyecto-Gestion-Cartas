@@ -2,9 +2,9 @@ doctype html
 html(lang='en')
   head
     meta(charset='UTF-8')
-    meta(name='viewport', content='width=device-width,initial-scale=1')
-    title Gestion Cartas
-    link(rel='stylesheet', type='text/css', href='css/tailwind.css')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    title Gestion Heroes
+    link(rel='stylesheet', type='text/css', href='/css/GestionCartas.css')
     link(href='https://fonts.googleapis.com/css2?family=Barlow:wght@500;600;800&family=Irish+Grover&family=Playfair+Display:wght@700&family=Raleway:wght@400;700;900&display=swap', rel='stylesheet')
   body
     header.header
@@ -15,52 +15,47 @@ html(lang='en')
       nav.nav
         a(href='#') Mi banco
         a(href='#') Jugar online
-        a(href='PerfilUsuario.html') Perfil
+        a(href='#') Perfil
     br
     center
-      .add-card-button
-        a.link(href) Añadir carta
+      .button-container
+        .cartalink.link
+          a(href='/admin/crearcarta', class='no-underline') Añadir Heroe
+        .cartalink.link
+          a(href='/admin/armaduras', class='no-underline') Armaduras
     br
     .caja
-      each carta in cartas
-        .columna
-          #bordeCarta.carta2.2xl.md\:w-200.md\:h-290(style='background:rgba(17,18,18,1); color:white; border:1px solid rgba(255,244,0,1);', data-tilt, data-tilt-max='15', data-tilt-speed='400', data-tilt-perspective='1000')
-            .titulo
-              p.2xl:text-18.md:text-15= carta.nombre_carta
-            img.2xl:h-150.md:sm:h-110(src='https://okdiario.com/img/2017/01/04/caballeros-edad-media-curiosidades-655x368.jpg', alt='')
-            .contenido
-              div
-                p.2xl:text-16.md:text-15 Poder: #{carta.poder}
-                p.2xl:text-16.md:text-15 Vida: #{carta.vida}
-                p.2xl:text-16.md:text-15 Defensa: #{carta.defensa}
-              div
-                p.2xl:text-16.md:text-15 Ataque: #{carta.ataqueBase}
-                p.2xl:text-16.md:text-15 Dano: #{carta.danoMax}
-            div(style='justify-content: end;')
-              button.modificar(type='button') Modificar
-              button.suspender(type='button') Suspender
-    br
+      //- Aquí comienza el bucle "each hero in heroes"
+      //- Asegúrate de que esta sección se repita dinámicamente con tus datos
+      each hero in heroes
+        #bordeCarta.carta2(style='background:rgba(17,18,18,1); color:white; border:1px solid rgba(255,244,0,1);')
+          .titulo
+            p(class='2xl:text-[18px] md:text-[14px]') #{hero.clase}
+          .img
+            img(src=hero.urlImagen, alt=`imagen de ${hero.clase} ${hero.tipo}`)
+            .overlay
+          .contenido(class='2xl:w-[220px] 2xl:h-[75px] md:sm:w-[165px] md:sm:h-[50px]')
+            .propiedad
+              p(class='2xl:text-[16px] md:text-[11px]') Poder: #{hero.poder}
+              p(class='2xl:text-[16px] md:text-[11px]') Tipo: #{hero.tipo}
+            .propiedad
+              p(class='2xl:text-[16px] md:text-[11px]') Vida: #{hero.vida}
+              p(class='2xl:text-[16px] md:text-[11px]') Ataque: #{hero.ataqueBase}
+            .propiedad
+              p(class='2xl:text-[16px] md:text-[11px]') Defensa: #{hero.defensa}
+              p(class='2xl:text-[16px] md:text-[11px]') Daño: #{hero.danoMax}
+          .button-container
+            a.link.suspender(href='/admin/actualizarcarta/#{hero._id}') Modificar
+            button.link.suspender(type='button', data-hero-id='#{hero._id}', data-is-active='#{hero.activo}', onclick='cambiarEstadoHeroe(event)')
+              | #{hero.activo ? 'Suspender' : 'Activar'}
+      //- Fin del bucle "each hero in heroes"
+      br
     center
-      button.save_button(type='button', onclick='addCard()') Guardar
-    br
-    #myModal.modal
-      .modal-content
-        span.close ×
-        .modal-content-inner
-          .image-container
-            img#modalImage(src, alt='Imagen de la carta')
-          .text-container
-            h2#modalCardName Nombre de la carta
-            p#modalCardDescription Descripción de la carta
-      .time-suspension
-        label(for='suspensionTime') Tiempo de suspensión:
-        select#suspensionTime
-          option(value='7') 7 días
-          option(value='15') 15 días
-          option(value='30') 1 mes
-          option(value='90') 3 meses
-          option(value='150') 5 meses
-          option(value='indefinite') Indefinido
-      .button-container
-        button#confirmSuspension Suspender
-  script(src='/js/suspendercartas.js')
+      ul.pagination
+        //- Aquí comienza el bucle "each pageNum in Array(totalPages).fill().map((_, i) => i + 1)"
+        //- Asegúrate de que esta sección se repita dinámicamente con tus datos
+        each pageNum in Array(totalPages).fill().map((_, i) => i + 1)
+          li
+            a(href='/admin/heroes?page=' + pageNum, class=pageNum === currentPage ? 'current' : '')= pageNum
+        //- Fin del bucle "each pageNum in Array(totalPages).fill().map((_, i) => i + 1)"
+  script(src='/js/scriptCartas.js')

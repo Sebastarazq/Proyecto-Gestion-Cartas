@@ -70,7 +70,7 @@ const mostrarHeroes = async (req, res) => {
 
     const totalPages = Math.ceil(allHeroes.length / ITEMS_PER_PAGE);
 
-    res.render('heroes', {
+    res.render('heroes2', {
       pagina: 'Gestion cartas',
       heroes: currentHeroes, // Pasa los datos de la página actual a la vista
       currentPage: parseInt(page),
@@ -526,6 +526,13 @@ const mostrarFormularioCreacion = (req, res) => {
       await newHero.save();
   
       console.log('Héroe creado:', newHero);
+
+      const heroe = {
+        _id: new ObjectId("1234")
+      };
+      const id = heroe._id.toString();
+      console.log(id);
+
   
       // Redirige al usuario a otra página o muestra un mensaje de éxito
       res.send('<script>alert("Héroe creado exitosamente!"); window.location.href = "/admin/heroes";</script>');

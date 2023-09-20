@@ -34,14 +34,6 @@ body{
     background-color: rgba(255, 255, 255, 0.1);
 }
 
-.link {
-    position: relative;
-    text-decoration: none;
-    color: black;
-    font-family: Arial, Helvetica, sans-serif;
-    top: 25%;
-}
-
 .button-container {
     display: flex;
     justify-content: center; /* Centra los elementos horizontalmente */
@@ -51,19 +43,10 @@ body{
     width: 150px;
     height: 40px;
     background-color: #c0a776;
-    border: 5px solid #bd9c5a;
+    border: 12px solid #bd9c5a;
     opacity: 90%;
     border-radius: 50px;
     margin-right: 10px; /* Espacio entre los botones */
-    text-align: center; /* Centra horizontalmente el contenido */
-    display: block; /* Hace que el enlace ocupe todo el espacio del contenedor */
-}
-
-.add-card-button a {
-    display: block; /* Hace que el enlace ocupe todo el espacio del contenedor */
-    width: 100%; /* Ocupa todo el ancho del contenedor */
-    height: 100%; /* Ocupa todo el alto del contenedor */
-    text-decoration: none;
 }
 
 .add-card-button:last-child {
@@ -76,6 +59,7 @@ body{
 
 .caja {
     display: flex;
+    flex-wrap: wrap; /* Permite que las cartas se envuelvan a la siguiente fila si no caben horizontalmente */
     flex-direction: row;
     margin: 0 auto;
     width: 80%;
@@ -83,6 +67,10 @@ body{
     border-radius: 5px;
     flex-wrap: wrap;
     justify-content: flex-start;
+}
+
+.botones_carta {
+    margin-top: 10px;
 }
 
 .columna {
@@ -122,11 +110,53 @@ body{
     cursor: pointer;
 }
 
+.button-container {
+    display: flex;
+    justify-content: center; /* Centra los botones horizontalmente */
+}
+
+.no-underline {
+    text-decoration: none;
+    color: black;
+}
+
+.cartalink{
+    position: relative;
+    text-decoration: none; /* Elimina el subrayado */
+    top: 25%;
+    transition: background-color 0.3s ease;
+}
+
+.cartalink:hover {
+    cursor: pointer;
+    background-color: #c3a66d;
+}
+
+
+.link,
 .suspender {
-    background-color: #c7bba3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    color: black;
+    font-family: Arial, Helvetica, sans-serif;
     border: 2px solid #b89d68;
-    opacity: 90%;
-    border-radius: 5px;
+    border-radius: 10px;
+    cursor: pointer;
+    margin: 15px;
+    height: 40px; /* Altura fija para ambos botones */
+    width: 150px; /* Ancho fijo para ambos botones */
+    margin-right: 10px; /* Espacio entre los botones */
+    font-size: 16px; /* Tamaño de fuente fijo para ambos botones */
+}
+
+.link {
+    background-color: #bea064; /* Color para el botón "Modificar" */
+}
+
+.suspender {
+    background-color: #bea064; /* Color para el botón "Suspender" */
 }
 
 .suspender:hover {
@@ -200,5 +230,75 @@ body{
   
 .pagination .current {
     background-color: #bd9c5a;
+}
+
+.carta2{
+    margin: 3.5%;
+    padding: 15px;
+    border-radius: 10px;
+    position: relative;
+    height: 50%;
+    width: 23%;
+}
+  
+.carta2 .titulo{
+    font-weight: bold;
+    padding:5px;
+    background:rgba(57,57,15,1);
+    opacity:1;
+    border:1px solid rgba(255,244,0,1);
+    border-radius:5px;
+    margin-bottom:10px;
+    text-align: center;
+}
+
+ 
+  
+.carta2 img{
+    border:1px solid rgba(255,244,0,1);
+    border-radius:5px;
+    display: block;
+    width: 100%;
+    height: 100%;
+    max-height: 300px;
+    max-width: 500px;
+}
+
+.img{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom:10px;
+}
+
+.carta2:hover img{
+    filter: brightness(1.1);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+  
+  
+.carta2 .contenido{
+    display: flex;
+    justify-content: space-between;
+    border:1px solid rgba(255,244,0,1);
+    border-radius:5px;
+    background:rgba(57,57,15,1);
+    padding: 10px;
+}
+
+ 
+  
+[data-tilt] button{
+    text-align: center;
+    margin: 5px;
+    padding: 2px;
+    color: rgb(0, 0, 0);
+    border-radius: 10px;
+    color: white;
+}
+  
+[data-tilt] mat-icon{
+    width: 30px;
+    height: 30px;
 }
 
