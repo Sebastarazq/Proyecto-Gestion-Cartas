@@ -71,7 +71,7 @@ router.post('/admin/crearitem',jwttoken, multerMiddleware.single('urlImagen'), c
 
 // Ruta para mostrar el formulario de actualizar Items y enviarlo
 router.get('/admin/actualizaritem/:Id',jwttoken, mostrarFormularioActualizacionItem);
-router.post('/admin/actualizaritem/:Id',jwttoken, actualizarItem);
+router.post('/admin/actualizaritem/:Id',jwttoken, multerMiddleware.single('urlImagen'), actualizarItem);
 
 // Ruta para cambiar el estado de la Items
 router.put('/admin/cambiarestadoitem/:Id',jwttoken, cambiarEstadoItem);
