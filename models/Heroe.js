@@ -12,7 +12,7 @@ const heroeSchema = new mongoose.Schema({
   danoMax: Number,
   activo: Boolean,
   desc: String,
-});
+}, { versionKey: false }); // Desactiva el campo __v
 
 const HeroModel = mongoose.model("heroes", heroeSchema);
 

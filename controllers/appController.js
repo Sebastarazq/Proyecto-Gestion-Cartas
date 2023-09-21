@@ -3,7 +3,8 @@ import ArmaduraModel from '../models/Armadura.js';
 import ArmaModel from '../models/Arma.js';
 import ItemModel from '../models/Item.js';
 import EpicaModel from '../models/Epica.js';
-import mongoose from 'mongoose';
+import axios from 'axios';
+import {ObjectId } from 'mongoose';
 import jwt from 'jsonwebtoken';
 
 // Definir un usuario y contraseña de administrador
@@ -525,14 +526,21 @@ const mostrarFormularioCreacion = (req, res) => {
       // Guarda el nuevo héroe en la base de datos
       await newHero.save();
   
+      // Extrae el _id del nuevo héroe
+      const nuevoHeroeId = newHero._id.toHexString();
+  
       console.log('Héroe creado:', newHero);
-
-      const heroe = {
-        _id: new ObjectId("1234")
-      };
-      const id = heroe._id.toString();
-      console.log(id);
-
+      console.log('ID del nuevo héroe:', nuevoHeroeId);
+  
+      // Realiza la solicitud POST para crear la carta utilizando axios
+      const cartEndpoint ='https://store.thenexusbattles2.cloud/webserver/crear-carta';
+      const requestData = { id_carta: nuevoHeroeId };
+  
+      await axios.post(cartEndpoint, requestData, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
   
       // Redirige al usuario a otra página o muestra un mensaje de éxito
       res.send('<script>alert("Héroe creado exitosamente!"); window.location.href = "/admin/heroes";</script>');
@@ -540,8 +548,7 @@ const mostrarFormularioCreacion = (req, res) => {
       console.error(error);
       res.status(500).json({ error: 'Error al crear el héroe' });
     }
-  };  
-
+  };
 
 const mostrarFormularioActualizacion = async (req, res) => {
   try {

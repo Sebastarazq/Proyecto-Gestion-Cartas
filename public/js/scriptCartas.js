@@ -22,8 +22,8 @@ async function cambiarEstadoHeroe(e) {
       e.target.dataset.isActive = nuevoEstado;
       e.target.textContent = nuevoEstado ? 'Activar' : 'Suspender';
 
-      const carta = e.target.closest('.carta');
-      carta.classList.toggle('suspended'); // Cambiar la clase para cambiar el color
+      const carta2 = e.target.closest('.carta2');
+      carta2.classList.toggle('suspended'); // Cambiar la clase para cambiar el color
 
       alert(message); // Muestra un mensaje de éxito
     } else {

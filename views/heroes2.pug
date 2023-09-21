@@ -22,7 +22,7 @@ html(lang='en')
         .cartalink.link
           a(href='/admin/crearcarta', class='no-underline') Añadir Heroe
         .cartalink.link
-          a(href='/admin/armaduras', class='no-underline') Armaduras
+          a(href='/', class='no-underline') Inicio
     br
     .caja
       //- Aquí comienza el bucle "each hero in heroes"
@@ -46,8 +46,8 @@ html(lang='en')
               p(class='2xl:text-[16px] md:text-[11px]') Daño: #{hero.danoMax}
           .button-container
             a.link.suspender(href='/admin/actualizarcarta/#{hero._id}') Modificar
-            button.link.suspender(type='button', data-hero-id='#{hero._id}', data-is-active='#{hero.activo}', onclick='cambiarEstadoHeroe(event)')
-              | #{hero.activo ? 'Suspender' : 'Activar'}
+            button.link.suspender(class="link", type='button', data-hero-id=hero._id, data-is-active=hero.activo, onclick="cambiarEstadoHeroe(event)")
+                | #{hero.activo ? 'Suspender' : 'Activar'}
       //- Fin del bucle "each hero in heroes"
       br
     center

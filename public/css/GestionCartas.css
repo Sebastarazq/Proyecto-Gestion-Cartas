@@ -118,14 +118,17 @@ body{
 .no-underline {
     text-decoration: none;
     color: black;
+    display: block;
+    width: 100%;
 }
 
-.cartalink{
+.cartalink {
+
     position: relative;
     text-decoration: none; /* Elimina el subrayado */
     top: 25%;
     transition: background-color 0.3s ease;
-}
+  }
 
 .cartalink:hover {
     cursor: pointer;

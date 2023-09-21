@@ -68,8 +68,8 @@ body {
 }
 
 .image-item img {
-    width: 230px; /* Ajusta el tamaño de la imagen según tu preferencia */
-    height: auto;
+    width: 230px; /* Ancho deseado */
+    height: 280px; /* Alto deseado */
     display: block;
     margin: 0 auto;
     border-radius: 15px;
