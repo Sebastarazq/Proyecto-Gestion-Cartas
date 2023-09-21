@@ -204,7 +204,7 @@ const crearEpica = async (req, res) => {
     const file = req.file; // El archivo subido
 
     // Construye la URL de la imagen
-    const urlImagen = `http://4.246.161.219:3000/img/${file.filename}`;
+    const urlImagen = `https://store.thenexusbattles2.cloud/imgcards/img/${file.filename}`;
 
     console.log('formData:', formData);
 
@@ -281,7 +281,7 @@ const actualizarEpica = async (req, res) => {
     // Si se proporciona una nueva imagen, guarda la URL de la nueva imagen
     if (req.file) {
       // Construye la URL de la imagen actualizada
-      const baseUrl = 'http://4.246.161.219:3000'; // Cambia esto según la configuración de tu servidor
+      const baseUrl = 'https://store.thenexusbattles2.cloud/imgcards'; // Cambia esto según la configuración de tu servidor
       urlImagen = `${baseUrl}/img/${req.file.filename}`;
     }
 
@@ -361,7 +361,7 @@ const crearArma = async (req, res) => {
     const file = req.file; // El archivo subido
 
     // Construye la URL de la imagen
-    const urlImagen = `http://4.246.161.219:3000/img/${file.filename}`;
+    const urlImagen = `https://store.thenexusbattles2.cloud/imgcards/img/${file.filename}`;
 
     console.log('formData:', formData);
     console.log('formData.efecto:', formData.efecto);
@@ -429,7 +429,7 @@ const actualizarArma = async (req, res) => {
     // Si se proporciona una nueva imagen, guarda la URL de la nueva imagen
     if (req.file) {
       // Construye la URL de la imagen actualizada
-      const baseUrl = 'http://4.246.161.219:3000'; // Cambia esto según la configuración de tu servidor
+      const baseUrl = 'https://store.thenexusbattles2.cloud/imgcards'; // Cambia esto según la configuración de tu servidor
       urlImagen = `${baseUrl}/img/${req.file.filename}`;
     }
 
@@ -502,7 +502,7 @@ const mostrarFormularioCreacion = (req, res) => {
       const file = req.file; // El archivo subido
   
       // Construye la URL de la imagen
-      const urlImagen = `http://4.246.161.219:3000/img/${file.filename}`;
+      const urlImagen = `https://store.thenexusbattles2.cloud/imgcards/img/${file.filename}`;
   
       // Genera valores aleatorios para Ataque Dado y Ataque Máximo (entre 1 y 10)
       const ataqueDado = Math.floor(Math.random() * 10) + 1; // Número aleatorio entre 1 y 10
@@ -586,7 +586,7 @@ const actualizarCarta = async (req, res) => {
     // Si se proporciona una nueva imagen, guarda la URL de la nueva imagen
     if (req.file) {
       // Construye la URL de la imagen actualizada
-      const baseUrl = 'http://4.246.161.219:3000'; // Cambia esto según la configuración de tu servidor
+      const baseUrl = 'https://store.thenexusbattles2.cloud/imgcards'; // Cambia esto según la configuración de tu servidor
       urlImagen = `${baseUrl}/img/${req.file.filename}`;
     }
 
@@ -657,7 +657,7 @@ const crearArmadura = async (req, res) => {
     const file = req.file; // El archivo subido
 
     // Construye la URL de la imagen
-    const urlImagen = `http://4.246.161.219:3000/img/${file.filename}`;
+    const urlImagen = `https://store.thenexusbattles2.cloud/imgcards/img/${file.filename}`;
 
     console.log('formData:', formData);
     console.log('formData.efecto:', formData.efecto);
@@ -727,7 +727,7 @@ const actualizarArmadura = async (req, res) => {
     // Si se proporciona una nueva imagen, guarda la URL de la nueva imagen
     if (req.file) {
       // Construye la URL de la imagen actualizada
-      const baseUrl = 'http://4.246.161.219:3000'; // Cambia esto según la configuración de tu servidor
+      const baseUrl = 'https://store.thenexusbattles2.cloud/imgcards'; // Cambia esto según la configuración de tu servidor
       urlImagen = `${baseUrl}/img/${req.file.filename}`;
     }
 
@@ -794,7 +794,7 @@ const crearItem = async (req, res) => {
     const file = req.file; // El archivo subido
 
     // Construye la URL de la imagen
-    const urlImagen = `http://4.246.161.219:3000/img/${file.filename}`;
+    const urlImagen = `https://store.thenexusbattles2.cloud/imgcards/img/${file.filename}`;
 
     console.log('formData:', formData);
     console.log('formData.efecto:', formData.efecto);
@@ -863,7 +863,7 @@ const actualizarItem = async (req, res) => {
     // Si se proporciona una nueva imagen, guarda la URL de la nueva imagen
     if (req.file) {
       // Construye la URL de la imagen actualizada
-      const baseUrl = 'http://4.246.161.219:3000'; // Cambia esto según la configuración de tu servidor
+      const baseUrl = 'https://store.thenexusbattles2.cloud/imgcards'; // Cambia esto según la configuración de tu servidor
       urlImagen = `${baseUrl}/img/${req.file.filename}`;
     }
 
