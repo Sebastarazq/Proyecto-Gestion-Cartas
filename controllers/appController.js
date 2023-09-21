@@ -721,8 +721,19 @@ const actualizarArmadura = async (req, res) => {
     const idArmadura = req.params.Id; // Obtener el valor del parámetro :id
     const formData = req.body; // Obtener los datos del formulario
 
+    // Obtener la URL de la imagen existente (por defecto)
+    let urlImagen = formData.urlImagen;
+
+    // Si se proporciona una nueva imagen, guarda la URL de la nueva imagen
+    if (req.file) {
+      // Construye la URL de la imagen actualizada
+      const baseUrl = 'http://4.246.161.219:3000'; // Cambia esto según la configuración de tu servidor
+      urlImagen = `${baseUrl}/img/${req.file.filename}`;
+    }
+
     // Buscar la carta por su ID y actualizarla con los nuevos datos del formulario, excluyendo la imagen
     await ArmaduraModel.findByIdAndUpdate(idArmadura, {
+      urlImagen,
       heroe: formData.heroe,
       tipo: formData.tipo,
       efecto: {

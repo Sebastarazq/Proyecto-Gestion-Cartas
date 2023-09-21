@@ -14,6 +14,10 @@ html(lang='es')
       header
         h1 Actualizar Armadura
       form.card-form(action=`/admin/actualizararmadura/${armadura._id}`, method='post')
+        label(for='urlImagen')
+          span.custom-upload-button Subir imagen:
+          input(type='file', name='urlImagen', id='urlImagen', accept='image/*', required, style='position: absolute; opacity: 0;')
+          span.file-name(id='file-name-span')
         label(for='heroe') Héroe:
         input(type='text', name='heroe', id='heroe', required, value=armadura.heroe)
         label(for='tipo') Tipo:
@@ -35,3 +39,4 @@ html(lang='es')
         label(for='desc') Descripción:
         textarea(name='desc', id='desc', required)= armadura.desc
         button(type='submit') Actualizar Armadura
+  script(src="/js/scriptImagen.js")
