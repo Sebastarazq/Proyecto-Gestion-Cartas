@@ -38,12 +38,12 @@ html(lang='en')
               p(class='2xl:text-[16px] md:text-[11px]') Descripción: #{arma.desc}
           .button-container
             a.modificar(href=`/admin/actualizararma/${arma._id}`, class="link") Modificar
-            button.link.suspender(type='button', data-item-id=arma._id, data-is-active=arma.activo, onclick='cambiarEstadoArma(event)')
-              | #{arma.activo ? 'Suspender' : 'Activar'}
+            button.link.suspender(class="link", type='button', data-arma-id=arma._id, data-is-active=arma.activo, onclick="cambiarEstadoArma(event)")
+                    | #{arma.activo ? 'Suspender' : 'Activar'}
                 
     center
       ul.pagination
         each pageNum in Array(totalPages).fill().map((_, i) => i + 1)
           li
             a(href=`/admin/armas?page=${pageNum}`, class=pageNum === currentPage ? 'current' : '')= pageNum
-  script(src='/js/scriptItems.js')
+  script(src='/js/scriptArmas.js')

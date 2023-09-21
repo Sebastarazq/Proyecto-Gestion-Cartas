@@ -39,11 +39,11 @@ html(lang='en')
               p(class='2xl:text-[16px] md:text-[11px]') Efecto Héroe: #{epica.efectoHeroe.statEffect} #{epica.efectoHeroe.stat}
           .button-container
             a.modificar(href=`/admin/actualizarepica/${epica._id}`, class="link") Modificar
-            button.link.suspender(type='button', data-item-id=epica._id, data-is-active=epica.activo, onclick='cambiarEstadoItem(event)')
-              | #{epica.activo ? 'Suspender' : 'Activar'}
+            button.link.suspender(class="link", type='button', data-epica-id=epica._id, data-is-active=epica.activo, onclick="cambiarEstadoEpica(event)")
+                    | #{epica.activo ? 'Suspender' : 'Activar'}
     center
       ul.pagination
         each pageNum in Array(totalPages).fill().map((_, i) => i + 1)
           li
             a(href=`/admin/epicas?page=${pageNum}`, class=pageNum === currentPage ? 'current' : '')= pageNum
-  script(src='/js/scriptItems.js')
+  script(src='/js/scriptEpicas.js')
