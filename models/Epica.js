@@ -20,7 +20,7 @@ const epicaSchema = new mongoose.Schema({
   },
   activo: Boolean,
   desc: String,
-});
+},{ versionKey: false }); // Desactiva el campo __v);
 
 const EpicaModel = mongoose.model("epicas", epicaSchema);
 

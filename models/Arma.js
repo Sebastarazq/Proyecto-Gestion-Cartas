@@ -13,7 +13,7 @@ const armaSchema = new mongoose.Schema({
   },
   activo: Boolean,
   desc: String,
-});
+},{ versionKey: false }); // Desactiva el campo __v););
 
 const ArmaModel = mongoose.model("armas", armaSchema);
 

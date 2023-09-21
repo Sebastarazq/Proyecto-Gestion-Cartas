@@ -13,7 +13,7 @@ const itemSchema = new mongoose.Schema({
   },
   activo: Boolean,
   desc: String,
-});
+},{ versionKey: false }); // Desactiva el campo __v);
 
 const ItemModel = mongoose.model("items", itemSchema);
 

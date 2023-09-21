@@ -731,31 +731,35 @@ const actualizarArmadura = async (req, res) => {
       urlImagen = `${baseUrl}/img/${req.file.filename}`;
     }
 
-    // Buscar la carta por su ID y actualizarla con los nuevos datos del formulario, excluyendo la imagen
-    await ArmaduraModel.findByIdAndUpdate(idArmadura, {
-      urlImagen,
+    // Construye un objeto con los datos actualizados
+    const updatedData = {
+      urlImagen, // Actualiza la URL de la imagen
       heroe: formData.heroe,
       tipo: formData.tipo,
       efecto: {
-        case: formData['efecto.case'],
-        statEffect: formData['efecto.statEffect'],
+        case: parseInt(formData['efecto.case']), // Asegúrate de analizar valores numéricos si son números
+        statEffect: parseInt(formData['efecto.statEffect']), // Asegúrate de analizar valores numéricos si son números
         stat: formData['efecto.stat'],
         target: formData['efecto.target'],
-        turnCount: formData['efecto.turnCount'],
+        turnCount: parseInt(formData['efecto.turnCount']), // Asegúrate de analizar valores numéricos si son números
       },
       activo: formData.activo === 'true',
       desc: formData.desc,
-    });
+    };
 
-    console.log('Carta actualizada con éxito.');
+    // Actualiza los datos de la armadura en la base de datos
+    await ArmaduraModel.findByIdAndUpdate(idArmadura, updatedData);
+
+    console.log('Armadura actualizada con éxito.');
 
     // Agregar un script de alert después de la redirección
-    res.send('<script>alert("Carta actualizada con éxito."); window.location.href = "/admin/armaduras/";</script>');
+    res.send('<script>alert("Armadura actualizada con éxito."); window.location.href = "/admin/armaduras/";</script>');
   } catch (error) {
     console.error(error);
     res.render('error'); // Renderiza una vista de error en caso de problemas
   }
 };
+
 
 // Controlador para cambiar el estado activo del héroe
 const cambiarEstadoArmadura = async (req, res) => {

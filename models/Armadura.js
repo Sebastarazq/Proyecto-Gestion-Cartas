@@ -13,7 +13,7 @@ const armaduraSchema = new mongoose.Schema({
   },
   activo: Boolean,
   desc: String,
-});
+},{ versionKey: false }); // Desactiva el campo __v);
 
 const ArmaduraModel = mongoose.model("armaduras", armaduraSchema);
 
