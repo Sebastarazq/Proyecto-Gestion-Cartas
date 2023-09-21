@@ -840,13 +840,25 @@ const mostrarFormularioActualizacionItem = async (req, res) => {
     res.render('error'); // Renderizar una vista de error en caso de problemas
   }
 };
+
+
 const actualizarItem = async (req, res) => {
   try {
     const idItem = req.params.Id; // Obtener el valor del parámetro :id
     const formData = req.body; // Obtener los datos del formulario
 
+    let urlImagen = formData.urlImagen;
+
+    // Si se proporciona una nueva imagen, guarda la URL de la nueva imagen
+    if (req.file) {
+      // Construye la URL de la imagen actualizada
+      const baseUrl = 'http://4.246.161.219:3000'; // Cambia esto según la configuración de tu servidor
+      urlImagen = `${baseUrl}/img/${req.file.filename}`;
+    }
+
     // Buscar el Item por su ID y actualizarla con los nuevos datos del formulario
     await ItemModel.findByIdAndUpdate(idItem, {
+        urlImagen,
         heroe: formData.heroe,
         nombre: formData.nombre,
         efecto: {
