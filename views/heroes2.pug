@@ -45,7 +45,7 @@ html(lang='en')
               p(class='2xl:text-[16px] md:text-[11px]') Defensa: #{hero.defensa}
               p(class='2xl:text-[16px] md:text-[11px]') Daño: #{hero.danoMax}
           .button-container
-            a.link.suspender(href='/admin/actualizarcarta/#{hero._id}') Modificar
+            a.link.suspender(href='/admin/actualizarcarta/#{hero._id}', class="link") Modificar
             button.link.suspender(class="link", type='button', data-hero-id=hero._id, data-is-active=hero.activo, onclick="cambiarEstadoHeroe(event)")
                 | #{hero.activo ? 'Suspender' : 'Activar'}
       //- Fin del bucle "each hero in heroes"

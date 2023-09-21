@@ -98,7 +98,7 @@ body{
 }
 
 .modificar {
-    background-color: #c7bba3;
+    background-color: #bea064;
     border: 2px solid #b89d68;
     opacity: 90%;
     border-radius: 5px;
@@ -132,7 +132,7 @@ body{
 
 .cartalink:hover {
     cursor: pointer;
-    background-color: #c3a66d;
+    background-color: #ceb178;
 }
 
 
@@ -157,6 +157,10 @@ body{
 .link {
     background-color: #bea064; /* Color para el botón "Modificar" */
 }
+.link:hover {
+    cursor: pointer;
+    background-color: #ceb178;
+}
 
 .suspender {
     background-color: #bea064; /* Color para el botón "Suspender" */
@@ -164,6 +168,7 @@ body{
 
 .suspender:hover {
     cursor: pointer;
+    background-color: #ceb178;
 }
 
 .carta{
@@ -240,7 +245,6 @@ body{
     padding: 15px;
     border-radius: 10px;
     position: relative;
-    height: 50%;
     width: 23%;
 }
   
@@ -267,13 +271,15 @@ body{
     max-width: 500px;
 }
 
-.img{
+.img {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom:10px;
-}
-
+    margin-bottom: 10px;
+    width: 275px; /* Ajusta el ancho deseado */
+    height: 305px; /* Ajusta el alto deseado */
+  }
+  
 .carta2:hover img{
     filter: brightness(1.1);
     box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
